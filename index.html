@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ibrahim Afkir — AI Developer</title>
+<meta name="description" content="Portfolio of Ibrahim Afkir, AI developer specialising in computer vision." />
+<link rel="icon" href="images/favicon-32x32.png" type="image/png" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+/* ============ HOME PAGE ============ */
+
+/* --- Hero shell --- */
+.hero { position: relative; overflow: hidden; padding-top: clamp(36px, 6vw, 72px); padding-bottom: clamp(56px, 8vw, 110px); }
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(60% 70% at 78% 12%, var(--accent-soft) 0%, transparent 60%),
+    radial-gradient(50% 60% at 10% 0%, oklch(0.97 0.012 var(--accent-h) / 0.7) 0%, transparent 55%);
+}
+.hero__variant { display: none; }
+body[data-hero="a"] .hero__variant--a,
+body[data-hero="b"] .hero__variant--b,
+body[data-hero="c"] .hero__variant--c { display: block; }
+
+.hero-fade > * { opacity: 0; transform: translateY(16px); animation: heroIn 0.85s var(--ease) forwards; }
+.hero-fade > *:nth-child(1) { animation-delay: 0.05s; }
+.hero-fade > *:nth-child(2) { animation-delay: 0.13s; }
+.hero-fade > *:nth-child(3) { animation-delay: 0.21s; }
+.hero-fade > *:nth-child(4) { animation-delay: 0.29s; }
+.hero-fade > *:nth-child(5) { animation-delay: 0.37s; }
+@keyframes heroIn { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .hero-fade > * { opacity: 1; transform: none; animation: none; } }
+
+/* --- Variant A: split editorial --- */
+.heroA { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
+.heroA__name { margin: 18px 0 0; }
+.heroA__name .display { display: block; }
+.heroA__role { font-family: var(--mono); color: var(--accent-ink); font-size: clamp(1rem, 1.5vw, 1.2rem); margin-top: 10px; letter-spacing: -0.01em; }
+.heroA__lead { margin-top: 22px; max-width: 30ch; }
+.heroA__cta { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+.heroA__meta { margin-top: 36px; display: flex; gap: 26px; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--line); }
+.heroA__stat .n { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.03em; }
+.heroA__stat .l { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.heroA__visual { position: relative; max-width: 400px; margin-left: auto; }
+.heroA__frame { aspect-ratio: 1/1; border-radius: 50%; box-shadow: 0 40px 80px oklch(0.4 0.06 290 / 0.34), 0 16px 34px oklch(0.4 0.05 290 / 0.22); }
+.heroA__badge {
+  position: absolute; background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r); box-shadow: var(--shadow); padding: 12px 15px;
+  display: flex; align-items: center; gap: 11px; font-size: 0.86rem;
+}
+.heroA__badge .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.heroA__badge .mono { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); display: block; }
+.heroA__badge.b1 { top: 22px; left: -22px; }
+.heroA__badge.b2 { bottom: 26px; right: -18px; }
+
+/* --- Featured internship --- */
+.spotlight { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(28px, 4vw, 56px); align-items: center; }
+.spotlight__art { position: relative; aspect-ratio: 16/11; order: 2; display: grid; place-items: center; }
+.spotlight__art::before { content: ""; position: absolute; width: 66%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, var(--accent-soft) 0%, transparent 68%); z-index: 0; }
+.spotlight__art::after { content: ""; position: absolute; bottom: 2%; left: 50%; z-index: 0; width: 40%; height: 24px; border-radius: 50%; background: radial-gradient(ellipse at center, oklch(0.24 0.04 290 / 0.66) 0%, transparent 72%); filter: blur(4px); transform: translateX(-50%) scale(1); animation: shadowPulse 6.5s var(--ease) infinite; }
+.spotlight__robot { position: relative; z-index: 1; width: 72%; max-width: 320px; height: auto; object-fit: contain; filter: drop-shadow(0 12px 14px oklch(0.4 0.06 290 / 0.16)); animation: floaty 6.5s var(--ease) infinite; }
+@media (prefers-reduced-motion: reduce) { .spotlight__robot, .spotlight__art::after { animation: none; } }
+.spotlight__body { order: 1; }
+.spotlight__flow { margin-top: 26px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.spotlight__step { display: flex; align-items: center; gap: 10px; }
+.spotlight__step .b { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 0.42em 0.85em; font-family: var(--mono); font-size: 0.78rem; box-shadow: var(--shadow-xs); }
+.spotlight__step .arrow { color: var(--accent-ink); }
+.spot-company { display: inline-flex; align-items: center; gap: 11px; background: var(--surface); border: 1px solid var(--line-2); border-radius: 999px; padding: 7px 16px 7px 7px; box-shadow: var(--shadow-xs); font-size: 0.92rem; font-weight: 500; letter-spacing: -0.01em; }
+.spot-company .ic { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--accent-soft); border: 1px solid var(--accent-line); color: var(--accent-ink); display: grid; place-items: center; }
+.spot-company .ic svg { width: 15px; height: 15px; }
+.spot-company .sub { color: var(--muted); font-weight: 400; font-family: var(--mono); font-size: 0.78rem; padding-left: 9px; border-left: 1px solid var(--line); }
+.spot-title { font-size: clamp(1.9rem, 3.2vw, 2.6rem); margin-top: 20px; line-height: 1.06; letter-spacing: -0.025em; }
+.spot-title em { font-style: normal; color: var(--accent-ink); }
+.spot-lead { margin-top: 22px; max-width: 42ch; font-size: clamp(1.05rem, 1.4vw, 1.22rem); color: var(--ink-2); line-height: 1.5; padding-left: 18px; border-left: 3px solid var(--accent); }
+.spot-meta { margin-top: 30px; display: flex; gap: 28px; flex-wrap: wrap; padding-top: 22px; border-top: 1px solid var(--line); }
+.spot-meta .l { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.spot-meta .v { font-size: 1.02rem; font-weight: 500; margin-top: 4px; }
+
+/* --- Selected work preview --- */
+.work-grid { grid-template-columns: repeat(3, 1fr); }
+.mini-card { display: flex; flex-direction: column; border-radius: var(--r-lg); overflow: hidden; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-xs); transition: transform 0.45s var(--ease), box-shadow 0.45s, border-color 0.3s; }
+.mini-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--line-2); }
+.mini-card__media { aspect-ratio: 16/10; border-radius: 0; border: none; border-bottom: 1px solid var(--line); }
+.mini-card__body { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.mini-card__body h3 { font-size: 1.12rem; }
+.mini-card__body p { color: var(--muted); font-size: 0.92rem; line-height: 1.5; flex: 1; }
+
+/* --- About strip --- */
+.about-strip { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+.about-strip__art { position: relative; aspect-ratio: 1/1; max-width: 440px; margin-inline: auto; display: grid; place-items: center; }
+.about-strip__art::before {
+  content: ""; position: absolute; width: 80%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-soft) 0%, transparent 68%); z-index: 0;
+}
+/* ground shadow under the floating robot — grows & fades as it rises */
+.about-strip__art::after {
+  content: ""; position: absolute; bottom: 7%; left: 50%; z-index: 0;
+  width: 46%; height: 26px; border-radius: 50%;
+  background: radial-gradient(ellipse at center, oklch(0.28 0.04 290 / 0.55) 0%, transparent 72%);
+  filter: blur(4px);
+  transform: translateX(-50%) scale(1);
+  animation: shadowPulse 5.5s var(--ease) infinite;
+}
+.robot {
+  position: relative; z-index: 1; width: 92%; height: auto; object-fit: contain;
+  animation: floaty 5.5s var(--ease) infinite;
+  filter: drop-shadow(0 12px 14px oklch(0.4 0.06 290 / 0.16));
+}
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+@keyframes shadowPulse {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
+  50% { transform: translateX(-50%) scale(1.22); opacity: 0.62; }
+}
+@media (prefers-reduced-motion: reduce) { .robot, .about-strip__art::after { animation: none; } }
+.about-strip__cta { margin-top: 28px; }
+@media (max-width: 860px) {
+  .about-strip { grid-template-columns: 1fr; }
+  .about-strip__art { order: -1; max-width: 300px; }
+}
+
+/* --- Contact band --- */
+.contact { text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-2xl); padding: clamp(44px, 6vw, 80px); box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+.contact::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 120% at 50% 0%, var(--accent-soft) 0%, transparent 60%); z-index: 0; }
+.contact > * { position: relative; z-index: 1; }
+.contact__cta { margin-top: 28px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+@media (max-width: 860px) {
+  .heroA, .spotlight { grid-template-columns: 1fr; }
+  .heroA__visual { order: -1; max-width: 320px; margin-inline: auto; }
+  .heroA__badge.b1 { left: 0; } .heroA__badge.b2 { right: 0; }
+  .spotlight__art { order: -1; }
+  .work-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body data-page="home" data-hero="a">
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="brand" aria-label="Ibrahim Afkir — home">
+      <span class="brand__mark">IA</span>
+      <span>Ibrahim Afkir <span class="brand__sub">/ AI dev</span></span>
+    </a>
+    <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <div class="nav__links">
+      <a href="index.html" class="nav__link is-active">Home</a>
+      <a href="about.html" class="nav__link">About</a>
+      <a href="projects.html" class="nav__link">Projects</a>
+      <a href="internship.html" class="nav__link">Internship</a>
+      <span class="nav__cta"><a href="#contact" class="btn btn--ghost btn--sm">Get in touch</a></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container">
+    <div class="hero__variant hero__variant--a">
+      <div class="heroA hero-fade">
+        <div>
+          <h1 class="heroA__name"><span class="display">Ibrahim</span><span class="display">Afkir</span></h1>
+          <span class="eyebrow" style="margin-top:14px;">AI Developer</span>
+          <p class="lead heroA__lead">Passionate about AI and applying it to solve real-world problems.</p>
+          <div class="heroA__cta">
+            <a href="projects.html" class="btn btn--accent">View projects <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a href="internship.html" class="btn btn--ghost">Internship case study</a>
+          </div>
+        </div>
+        <div class="heroA__visual">
+          <img src="images/small-profile.png" alt="Portrait of Ibrahim Afkir" class="heroA__frame is-media" />
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ABOUT STRIP ============ -->
+<section class="section section--tight" id="about">
+  <div class="container">
+    <div class="about-strip reveal">
+      <div class="about-strip__art">
+        <img src="images/robot.png" alt="AI robot" class="robot" />
+      </div>
+      <div>
+        <span class="eyebrow">About</span>
+        <h2 class="h2" style="margin-top:16px;">A little about me</h2>
+        <p class="lead" style="color:var(--ink-2); margin-top:18px;">I'm a junior AI developer who loves turning ideas into working software. From computer vision to chatbots and agentic AI to web development, I build intelligent systems that solve real-world problems, and the applications that make them genuinely useful to people.</p>
+        <div class="tags" style="margin-top:24px;">
+          <span class="tag tag--accent">Computer Vision</span>
+          <span class="tag tag--accent">Agentic AI</span>
+          <span class="tag tag--accent">Chatbots</span>
+          <span class="tag tag--accent">Web Development</span>
+        </div>
+        <div class="about-strip__cta">
+          <a href="about.html" class="btn btn--accent">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ INTERNSHIP SPOTLIGHT ============ -->
+<section class="section" id="internship">
+  <div class="container">
+    <div class="section-head reveal" style="margin-bottom: clamp(28px,4vw,44px);">
+      <span class="eyebrow">Featured · Internship</span>
+    </div>
+    <div class="spotlight reveal" data-delay="1">
+      <div class="spotlight__body">
+        <span class="spot-company">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16M15 21V9h3a1 1 0 0 1 1 1v11M8 8h2M8 12h2M8 16h2"/></svg></span>
+          Smart Toys &amp; Games <span class="sub">Smart NV</span>
+        </span>
+        <h2 class="spot-title">AI-Assisted <em>Puzzle Solver</em></h2>
+        <p class="spot-lead">A computer vision app that scans physical puzzles and provides real-time solving assistance.</p>
+        <div class="spot-meta">
+          <div><div class="l">Role</div><div class="v">AI Developer</div></div>
+          <div><div class="l">Domain</div><div class="v">Computer Vision</div></div>
+          <div><div class="l">Projects</div><div class="v">2</div></div>
+        </div>
+        <div style="margin-top:32px;">
+          <a href="internship.html" class="btn btn--primary">Explore the case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="spotlight__art">
+        <img src="images/puzzle-robot.png" alt="Robot solving a puzzle" class="spotlight__robot" />
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ SELECTED WORK ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal" style="flex-direction:row; align-items:flex-end; justify-content:space-between; max-width:none;">
+      <div class="stack" style="gap:16px;">
+        <span class="eyebrow">Selected work</span>
+        <h2 class="h2">A few things I've built</h2>
+      </div>
+      <a href="projects.html" class="btn btn--ghost btn--sm">All projects <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="grid work-grid">
+      <a href="projects.html" class="mini-card reveal" data-delay="1">
+        <img src="images/car1.JPG" alt="Go 4 Wheels" class="mini-card__media is-media" />
+        <div class="mini-card__body">
+          <h3>Go 4 Wheels</h3>
+          <p>A car marketplace built with Laravel — list, filter, and message sellers, with image uploads and multi-language support.</p>
+          <div class="tags"><span class="tag">Laravel</span><span class="tag">PHP</span></div>
+        </div>
+      </a>
+      <a href="projects.html" class="mini-card reveal" data-delay="2">
+        <img src="images/training1.JPG" alt="Training Session Progress" class="mini-card__media is-media" />
+        <div class="mini-card__body">
+          <h3>Training Session Progress</h3>
+          <p>A team platform to track training sessions at Thomas More — user-management CRUD, file uploads, and multi-language support.</p>
+          <div class="tags"><span class="tag">PHP</span><span class="tag">SQL</span></div>
+        </div>
+      </a>
+      <a href="projects.html" class="mini-card reveal" data-delay="3">
+        <img src="images/a1.jpg" alt="Scoop Heaven" class="mini-card__media is-media" />
+        <div class="mini-card__body">
+          <h3>Scoop Heaven</h3>
+          <p>A full-stack site for an ice-cream shop — I built the homepage plus a Flavors page and an About page with reviews.</p>
+          <div class="tags"><span class="tag">Bootstrap</span><span class="tag">SCSS</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="contact reveal">
+      <span class="eyebrow" style="justify-content:center;">Contact</span>
+      <h2 class="h1" style="margin-top:18px;">Let's talk about the work.</h2>
+      <p class="lead" style="margin:16px auto 0; max-width:46ch;">For the assessment, the full internship documentation is one click away. Otherwise, I'm happy to walk through any project.</p>
+      <div class="contact__cta">
+        <a href="mailto:brahim-afkir@hotmail.com" class="btn btn--accent">Email me <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="internship.html" class="btn btn--ghost">Internship documents</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <a href="index.html" class="brand"><span class="brand__mark">IA</span><span>Ibrahim Afkir</span></a>
+        <p class="muted" style="margin-top:16px; font-size:0.94rem;">AI developer specialising in computer vision and the applications built on it.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Pages</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="internship.html">Internship</a>
+      </div>
+      <div class="footer__col">
+        <h4>Elsewhere</h4>
+        <a href="#" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/ibrahim-afkir/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="mailto:brahim-afkir@hotmail.com">Email ↗</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Ibrahim Afkir</span>
+      <span class="mono">Designed &amp; built · e-portfolio</span>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

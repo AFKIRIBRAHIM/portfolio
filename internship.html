@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Internship — AI-Assisted Puzzle Solver · Ibrahim Afkir</title>
+<meta name="description" content="Internship case study: a computer-vision application that scans physical puzzles, digitises them, and generates solving hints." />
+<link rel="icon" href="images/favicon-32x32.png" type="image/png" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+/* ============ INTERNSHIP PAGE ============ */
+
+/* --- Page hero --- */
+.case-hero { position: relative; overflow: hidden; padding-top: clamp(40px, 6vw, 76px); padding-bottom: clamp(40px, 6vw, 72px); }
+.case-hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: radial-gradient(60% 80% at 88% 0%, var(--accent-soft) 0%, transparent 58%);
+}
+.case-hero__grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+.case-hero__company {
+  display: inline-flex; align-items: center; gap: 11px;
+  background: var(--surface); border: 1px solid var(--line-2); border-radius: 999px;
+  padding: 7px 16px 7px 7px; box-shadow: var(--shadow-xs);
+  font-size: 0.92rem; font-weight: 500; letter-spacing: -0.01em;
+}
+.case-hero__company .ic { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--accent-soft); border: 1px solid var(--accent-line); color: var(--accent-ink); display: grid; place-items: center; }
+.case-hero__company .ic svg { width: 15px; height: 15px; }
+.case-hero__company .sub { color: var(--muted); font-weight: 400; font-family: var(--mono); font-size: 0.78rem; padding-left: 9px; border-left: 1px solid var(--line); }
+.case-hero__title { margin-top: 22px; font-size: clamp(2.4rem, 4.8vw, 3.7rem); line-height: 1.04; }
+.case-hero__title em { font-style: normal; color: var(--accent-ink); }
+.case-hero__lead { margin-top: 26px; max-width: 42ch; font-size: clamp(1.12rem, 1.6vw, 1.34rem); color: var(--ink-2); padding-left: 18px; border-left: 3px solid var(--accent); }
+.case-hero__meta { margin-top: 34px; display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--line); }
+.case-hero__meta .l { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.case-hero__meta .v { font-size: 1.02rem; font-weight: 500; margin-top: 4px; }
+.case-hero__visual { position: relative; aspect-ratio: 1/1; max-width: 440px; margin-inline: auto; display: grid; place-items: center; }
+.case-hero__visual::before { content: ""; position: absolute; width: 82%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, var(--accent-soft) 0%, transparent 68%); z-index: 0; }
+/* ground shadow under the floating robot — grows & fades as it rises */
+.case-hero__visual::after {
+  content: ""; position: absolute; bottom: 2%; left: 50%; z-index: 0;
+  width: 44%; height: 26px; border-radius: 50%;
+  background: radial-gradient(ellipse at center, oklch(0.24 0.04 290 / 0.66) 0%, transparent 72%);
+  filter: blur(4px);
+  transform: translateX(-50%) scale(1);
+  animation: shadowPulse 6s var(--ease) infinite;
+}
+.case-hero__robot { position: relative; z-index: 1; width: 82%; height: auto; object-fit: contain; filter: drop-shadow(0 12px 14px oklch(0.4 0.06 290 / 0.16)); animation: floaty 6s var(--ease) infinite; }
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes shadowPulse {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
+  50% { transform: translateX(-50%) scale(1.22); opacity: 0.62; }
+}
+@media (prefers-reduced-motion: reduce) { .case-hero__robot, .case-hero__visual::after { animation: none; } }
+
+/* --- Synopsis / TL;DR card --- */
+.synopsis { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 36px); }
+.synopsis__block h3 { font-family: var(--mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-ink); font-weight: 500; margin-bottom: 12px; }
+.synopsis__block p { color: var(--ink-2); }
+
+/* --- Problem / Solution flow (connected spine) --- */
+section.flow .container { position: relative; }
+.flow__line { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; transform: translateX(-50%); background: linear-gradient(to bottom, transparent 0%, var(--accent-line) 6%, var(--accent) 50%, var(--accent-line) 94%, transparent 100%); z-index: 0; }
+.flow__row { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 7vw, 110px); align-items: center; padding-block: clamp(36px, 5vw, 72px); }
+.flow__node { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); border: 5px solid var(--bg); box-shadow: 0 0 0 1px var(--accent-line), 0 6px 14px oklch(0.55 0.17 var(--accent-h) / 0.45); }
+.flow__text { position: relative; z-index: 1; }
+.flow__title { font-size: clamp(1.5rem, 2.6vw, 2.05rem); margin-top: 14px; }
+.flow__text > p { margin-top: 16px; color: var(--ink-2); line-height: 1.6; max-width: 46ch; }
+.flow__list { list-style: none; margin-top: 20px; display: grid; gap: 13px; max-width: 48ch; }
+.flow__list li { position: relative; padding-left: 28px; color: var(--ink-2); line-height: 1.55; }
+.flow__list li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.flow__media { position: relative; z-index: 1; aspect-ratio: 4/3; border-radius: var(--r-xl); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--surface-2); }
+.flow__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.flow__media--contain { background: linear-gradient(155deg, oklch(0.95 0.045 var(--accent-h)) 0%, oklch(0.83 0.10 var(--accent-h)) 100%); border-color: var(--accent-line); }
+.flow__media--contain img { object-fit: contain; padding: 6%; }
+@media (max-width: 860px) {
+  .flow__line, .flow__node { display: none; }
+  .flow__row { grid-template-columns: 1fr; gap: 22px; padding-block: 26px; }
+  .flow__media { order: -1; }
+}
+
+/* --- Pipeline (process stepper) --- */
+.pipe { position: relative; }
+.pipe__track { display: grid; grid-template-columns: repeat(8, 1fr); align-items: start; }
+.pipe__step { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding-inline: 4px; }
+.pipe__step:not(:last-child)::after { content: ""; position: absolute; top: 30px; left: 50%; width: 100%; height: 2px; background: var(--accent-line); z-index: 0; }
+.pipe__dot { position: relative; z-index: 1; width: 60px; height: 60px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent-line); color: var(--accent-ink); display: grid; place-items: center; box-shadow: var(--shadow-xs); transition: transform 0.4s var(--ease), border-color 0.3s, box-shadow 0.4s; }
+.pipe__step:hover .pipe__dot { transform: translateY(-3px); border-color: var(--accent); box-shadow: var(--shadow-sm); }
+.pipe__dot svg { width: 25px; height: 25px; }
+.pipe__num { position: absolute; top: -7px; right: -7px; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: oklch(0.99 0.01 var(--accent-h)); font-family: var(--mono); font-size: 0.68rem; font-weight: 600; display: grid; place-items: center; box-shadow: var(--shadow-sm); border: 2px solid var(--bg); }
+.pipe__label { margin-top: 14px; font-size: 0.84rem; font-weight: 500; line-height: 1.3; color: var(--ink); max-width: 13ch; }
+@media (max-width: 760px) {
+  .pipe__track { grid-template-columns: 1fr; max-width: 360px; margin-inline: auto; }
+  .pipe__step { flex-direction: row; align-items: center; gap: 18px; text-align: left; padding: 12px 0; }
+  .pipe__step:not(:last-child)::after { top: 60px; left: 30px; width: 2px; height: calc(100% - 60px); }
+  .pipe__label { margin-top: 0; max-width: none; font-size: 0.95rem; }
+}
+
+/* --- Key technical highlights --- */
+.hl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.hl-card { display: flex; gap: 15px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 22px; box-shadow: var(--shadow-xs); transition: transform .4s var(--ease), box-shadow .4s, border-color .3s; }
+.hl-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--line-2); }
+.hl-card__ic { flex: none; width: 42px; height: 42px; border-radius: var(--r-sm); background: var(--accent-soft); border: 1px solid var(--accent-line); color: var(--accent-ink); display: grid; place-items: center; }
+.hl-card__ic svg { width: 21px; height: 21px; }
+.hl-card p { color: var(--ink-2); font-size: 0.95rem; line-height: 1.5; }
+.hl-card p strong { color: var(--ink); font-weight: 600; }
+@media (max-width: 680px) { .hl-grid { grid-template-columns: 1fr; } }
+
+/* --- Tech stack marquee --- */
+.mq { overflow: hidden; padding: 6px 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+.mq__track { display: flex; gap: 14px; width: max-content; animation: mq 34s linear infinite; will-change: transform; transform: translate3d(0,0,0); backface-visibility: hidden; }
+.mq:hover .mq__track { animation-play-state: paused; }
+@keyframes mq { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+.mq-tag { display: inline-flex; align-items: center; gap: 9px; padding: 0.65em 1.15em; border-radius: 999px; background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--shadow-xs); font-family: var(--mono); font-size: 0.95rem; white-space: nowrap; }
+.mq-tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .mq__track { animation: none; flex-wrap: wrap; } }
+
+/* --- Visuals gallery --- */
+.gallery { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; }
+.gallery__main { aspect-ratio: 16/10; border-radius: var(--r-lg); }
+.gallery__side { display: grid; gap: 18px; }
+.gallery__side .ph { aspect-ratio: 16/10; border-radius: var(--r-lg); }
+.gallery__strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 18px; }
+.gallery__strip .ph { aspect-ratio: 4/3; border-radius: var(--r-lg); }
+
+/* --- Tech stack --- */
+.stack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+.tech { display: flex; align-items: flex-start; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; box-shadow: var(--shadow-xs); transition: border-color 0.25s, transform 0.4s var(--ease); }
+.tech:hover { border-color: var(--line-2); transform: translateY(-3px); }
+.tech__badge { flex: none; width: 42px; height: 42px; border-radius: var(--r-sm); display: grid; place-items: center; font-family: var(--mono); font-weight: 600; font-size: 0.9rem; background: var(--ink); color: var(--bg); }
+.tech__badge.is-accent { background: var(--accent); color: oklch(0.99 0.01 var(--accent-h)); }
+.tech h4 { font-size: 1rem; margin-bottom: 3px; }
+.tech p { font-size: 0.82rem; color: var(--muted); line-height: 1.45; }
+
+/* --- Documents --- */
+.docs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.doc {
+  display: flex; flex-direction: column; gap: 16px;
+  background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-lg);
+  padding: 26px 24px 24px; box-shadow: var(--shadow-sm);
+  transition: transform 0.45s var(--ease), box-shadow 0.45s, border-color 0.3s;
+  position: relative; overflow: hidden;
+}
+.doc::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); transform: scaleY(0); transform-origin: top; transition: transform 0.4s var(--ease); }
+.doc:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--accent-line); }
+.doc:hover::after { transform: scaleY(1); }
+.doc__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.doc__icon { width: 46px; height: 46px; border-radius: var(--r-sm); background: var(--accent-soft); border: 1px solid var(--accent-line); display: grid; place-items: center; color: var(--accent-ink); }
+.doc__icon svg { width: 23px; height: 23px; }
+.doc__ext { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid var(--line); border-radius: 999px; padding: 0.3em 0.7em; }
+.doc__label { font-family: var(--mono); font-size: 0.72rem; color: var(--accent-ink); text-transform: uppercase; letter-spacing: 0.1em; }
+.doc h3 { font-size: 1.22rem; margin-top: 2px; }
+.doc p { font-size: 0.9rem; color: var(--muted); line-height: 1.5; flex: 1; }
+.doc__btn { margin-top: 4px; display: inline-flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 0.8em 1.1em; border-radius: var(--r-sm); background: var(--ink); color: var(--bg); font-weight: 500; font-size: 0.92rem; transition: background 0.25s, transform 0.4s var(--ease); }
+.doc__btn svg { width: 1.05em; height: 1.05em; transition: transform 0.35s var(--ease); }
+.doc:hover .doc__btn { background: var(--accent); }
+.doc:hover .doc__btn svg { transform: translate(2px, -2px); }
+
+/* --- Supporting docs --- */
+.support-list { display: grid; gap: 0; border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: var(--surface); }
+.support {
+  display: flex; align-items: center; gap: 16px; padding: 18px 22px;
+  border-bottom: 1px solid var(--line); transition: background 0.2s;
+}
+.support:last-child { border-bottom: none; }
+.support:hover { background: var(--surface-2); }
+.support__icon { flex: none; width: 38px; height: 38px; border-radius: var(--r-xs); background: var(--surface-2); border: 1px solid var(--line); display: grid; place-items: center; color: var(--ink-2); }
+.support__icon svg { width: 18px; height: 18px; }
+.support__main { flex: 1; min-width: 0; }
+.support__main h4 { font-size: 0.98rem; font-weight: 500; }
+.support__main p { font-size: 0.82rem; color: var(--muted); }
+.support__ext { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.support__go { flex: none; color: var(--muted); transition: color 0.2s, transform 0.35s var(--ease); }
+.support:hover .support__go { color: var(--accent-ink); transform: translateX(3px); }
+.support__go svg { width: 18px; height: 18px; }
+
+@media (max-width: 900px) {
+  .docs-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 860px) {
+  .case-hero__grid { grid-template-columns: 1fr; }
+  .case-hero__visual { order: -1; }
+  .synopsis { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body data-page="internship">
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="brand" aria-label="Ibrahim Afkir — home">
+      <span class="brand__mark">IA</span>
+      <span>Ibrahim Afkir <span class="brand__sub">/ AI dev</span></span>
+    </a>
+    <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <div class="nav__links">
+      <a href="index.html" class="nav__link">Home</a>
+      <a href="about.html" class="nav__link">About</a>
+      <a href="projects.html" class="nav__link">Projects</a>
+      <a href="internship.html" class="nav__link is-active">Internship</a>
+      <span class="nav__cta"><a href="#documents" class="btn btn--ghost btn--sm">Documents</a></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ CASE HERO ============ -->
+<header class="case-hero">
+  <div class="container">
+    <div class="case-hero__grid hero-fade">
+      <div>
+        <span class="case-hero__company">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16M15 21V9h3a1 1 0 0 1 1 1v11M8 8h2M8 12h2M8 16h2"/></svg></span>
+          Smart Toys &amp; Games <span class="sub">Smart NV</span>
+        </span>
+        <h1 class="h1 case-hero__title">AI-Assisted <em>Puzzle Solver</em></h1>
+        <p class="case-hero__lead">A computer vision app that scans physical puzzles and provides real-time solving assistance.</p>
+      </div>
+      <div class="case-hero__visual">
+        <img src="images/puzzle-robot.png" alt="Robot solving a puzzle" class="case-hero__robot" />
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ COMPANY INTRO ============ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="reveal" style="max-width:760px; margin-inline:auto; text-align:center;">
+      <span class="eyebrow" style="justify-content:center;">The company</span>
+      <p class="lead" style="margin-top:20px; color:var(--ink-2);">Smart Toys &amp; Games is a Belgian company that designs physical and digital puzzles and games for children and families. Their logic puzzles challenge players to fit uniquely shaped pieces onto a board — <em style="font-style:normal; color:var(--accent-ink);">easy to start, but hard to finish.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM → SOLUTION FLOW ============ -->
+<section class="section flow">
+  <div class="container">
+    <div class="flow__line"></div>
+
+    <!-- Problem -->
+    <div class="flow__row reveal">
+      <span class="flow__node"></span>
+      <div class="flow__text">
+        <span class="eyebrow">The problem</span>
+        <h2 class="flow__title">When you're stuck, it's all or nothing</h2>
+        <p>When a player got stuck, the only option was a printed booklet — but it showed the <strong>full solution at once</strong>. There was no way to get just a small hint. And if the player was trying a challenge outside the booklet, there was no help at all: the booklet only covered <strong>120 challenges</strong> and their solutions, while the puzzle had far more possible configurations.</p>
+      </div>
+      <div class="flow__media"><img src="images/booklet.jpg" alt="A child solving the puzzle beside the printed solution booklet" /></div>
+    </div>
+
+    <!-- Solution -->
+    <div class="flow__row reveal">
+      <span class="flow__node"></span>
+      <div class="flow__media flow__media--contain" style="aspect-ratio:16/11;"><img src="images/iq-waves.png" alt="The physical IQ Waves board converted into a digital board in the app" /></div>
+      <div class="flow__text">
+        <span class="eyebrow">The solution</span>
+        <h2 class="flow__title">Just enough help, exactly when it's needed</h2>
+        <p>That's where I came in. I developed a computer vision app that scanned the physical puzzle board through the phone camera, detected every piece and its position, and rebuilt the board digitally. From that digital state, the app could check whether the puzzle was <strong>still solvable</strong> and provide <strong>progressive hints</strong> — starting with a single cell, then revealing more, up to the full piece placement. If the current placement led to a dead end, it identified exactly <strong>which pieces needed to be removed</strong>. Everything ran on the user's device — <strong>no backend, no installation needed</strong>.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============ HOW IT WORKS / PIPELINE ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal" style="max-width:780px;">
+      <span class="eyebrow">How it works</span>
+      <h2 class="h2">From photo to solution</h2>
+      <p class="lead" style="color:var(--ink-2);">The app processed each photo through a full computer vision pipeline. The image was first preprocessed and fed into a <strong>YOLOv26 Nano</strong> model that detected every piece and the board using instance segmentation. The detected masks were then decoded, and the camera angle was corrected using <strong>homography</strong> to produce a top-down view. From there, each piece was mapped to its position on the digital grid. Finally, a <strong>backtracking solver</strong> determined whether the puzzle was still solvable and generated hints or a full solution.</p>
+    </div>
+    <div class="pipe reveal" data-delay="1">
+      <div class="pipe__track">
+        <div class="pipe__step">
+          <span class="pipe__dot"><span class="pipe__num">1</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3Z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+          <span class="pipe__label">Photo</span>
+        </div>
+        <div class="pipe__step">
+          <span class="pipe__dot"><span class="pipe__num">2</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg></span>
+          <span class="pipe__label">Preprocessing</span>
+        </div>
+        <div class="pipe__step">
+          <span class="pipe__dot"><span class="pipe__num">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg></span>
+          <span class="pipe__label">YOLO Detection</span>
+        </div>
+        <div class="pipe__step">
+          <span class="pipe__dot"><span class="pipe__num">4</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+          <span class="pipe__label">Mask Decoding</span>
+        </div>
+        <div class="pipe__step">
+          <span class="pipe__dot"><span class="pipe__num">5</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 3 14 10M21 3v6M21 3h-6M3 21l7-7M3 21v-6M3 21h6"/></svg></span>
+          <span class="pipe__label">Perspective Correction</span>
+        </div>
+        <div class="pipe__step">
+          <span class="pipe__dot"><span class="pipe__num">6</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></span>
+          <span class="pipe__label">Grid Mapping</span>
+        </div>
+        <div class="pipe__step">
+          <span class="pipe__dot"><span class="pipe__num">7</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2"/></svg></span>
+          <span class="pipe__label">Solver</span>
+        </div>
+        <div class="pipe__step">
+          <span class="pipe__dot"><span class="pipe__num">8</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2Z"/></svg></span>
+          <span class="pipe__label">Hints</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ KEY TECHNICAL HIGHLIGHTS ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Key technical highlights</span>
+      <h2 class="h2">The hard parts</h2>
+    </div>
+    <div class="hl-grid reveal" data-delay="1">
+      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg></span><p>Generated <strong>1,800+ synthetic training images</strong> in Blender with fully automated annotation.</p></div>
+      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.2"/></svg></span><p>Labeled <strong>240+ real photos</strong> manually in Roboflow using instance segmentation.</p></div>
+      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></svg></span><p>Trained a <strong>YOLOv26 Nano</strong> model with a two-stage approach — pretrained on synthetic data, then finetuned on real photos — reaching <strong>99.5% mAP</strong>.</p></div>
+      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m8 9-3 3 3 3M16 9l3 3-3 3"/></svg></span><p>Ported the entire computer-vision pipeline from <strong>Python/OpenCV to JavaScript</strong>, running in the browser via <strong>ONNX Runtime</strong> and <strong>WebAssembly</strong>.</p></div>
+      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2"/></svg></span><p>Built a <strong>backtracking solver</strong> with progressive hints (one cell → two cells → full piece) and solvability checking.</p></div>
+      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span><p>Applied the <strong>same architecture to a second puzzle</strong> with a completely different board, grid, and piece shapes.</p></div>
+      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="6" width="20" height="12" rx="6"/><path d="M6 12h4M8 10v4M15 13h.01M18 11h.01"/></svg></span><p>Also contributed to a <strong>third project — an AR game</strong> — labeling 500+ real images for instance segmentation.</p></div>
+    </div>
+    <div class="reveal" style="margin-top: clamp(40px,6vw,58px);">
+      <span class="eyebrow">Built with</span>
+    </div>
+  </div>
+  <div class="mq reveal" data-delay="1" style="margin-top: 18px;">
+    <div class="mq__track">
+      <span class="mq-tag">Python</span><span class="mq-tag">Ultralytics</span><span class="mq-tag">YOLOv26</span><span class="mq-tag">ONNX Runtime</span><span class="mq-tag">Blender</span><span class="mq-tag">OpenCV</span><span class="mq-tag">React</span><span class="mq-tag">JavaScript</span><span class="mq-tag">WebAssembly</span><span class="mq-tag">Roboflow</span>
+      <span class="mq-tag" aria-hidden="true">Python</span><span class="mq-tag" aria-hidden="true">Ultralytics</span><span class="mq-tag" aria-hidden="true">YOLOv26</span><span class="mq-tag" aria-hidden="true">ONNX Runtime</span><span class="mq-tag" aria-hidden="true">Blender</span><span class="mq-tag" aria-hidden="true">OpenCV</span><span class="mq-tag" aria-hidden="true">React</span><span class="mq-tag" aria-hidden="true">JavaScript</span><span class="mq-tag" aria-hidden="true">WebAssembly</span><span class="mq-tag" aria-hidden="true">Roboflow</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ VISUALS / SCREENSHOTS ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Visuals</span>
+      <h2 class="h2">Screens &amp; demo</h2>
+      <p class="lead" style="color:var(--ink-2);">Coming Soon !</p>
+    </div>
+    <div class="gallery reveal">
+      <div class="ph ph--accent gallery__main"><span class="ph__label">main board UI / demo</span></div>
+      <div class="gallery__side">
+        <div class="ph"><span class="ph__label">camera modal</span></div>
+        <div class="ph"><span class="ph__label">detection output</span></div>
+      </div>
+    </div>
+    <div class="gallery__strip reveal" data-delay="1">
+      <div class="ph"><span class="ph__label">hint system</span></div>
+      <div class="ph"><span class="ph__label">solved state · confetti</span></div>
+      <div class="ph"><span class="ph__label">second puzzle</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ DOCUMENTS ============ -->
+<section class="section" id="documents">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Documentation</span>
+      <h2 class="h2">Required documents</h2>
+      <p class="lead" style="color:var(--ink-2);">The three mandatory deliverables for assessment. Each opens in a new tab.</p>
+    </div>
+    <div class="docs-grid">
+      <a href="docs/project-plan.pdf" target="_blank" rel="noopener" class="doc reveal" data-delay="1">
+        <div class="doc__top">
+          <div class="doc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></div>
+          <span class="doc__ext">PDF</span>
+        </div>
+        <div class="doc__label">01 · Plan</div>
+        <h3>Project Plan</h3>
+        <p>Scope, goals, approach, and planning set out at the start of the internship.</p>
+        <span class="doc__btn">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </a>
+      <a href="docs/realization-document.pdf" target="_blank" rel="noopener" class="doc reveal" data-delay="2">
+        <div class="doc__top">
+          <div class="doc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></div>
+          <span class="doc__ext">PDF</span>
+        </div>
+        <div class="doc__label">02 · Thesis</div>
+        <h3>Realization Document</h3>
+        <p>The full thesis detailing what was built and how, with results and analysis.</p>
+        <span class="doc__btn">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </a>
+      <a href="docs/reflection.pdf" target="_blank" rel="noopener" class="doc reveal" data-delay="3">
+        <div class="doc__top">
+          <div class="doc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 8v4l3 2"/></svg></div>
+          <span class="doc__ext">PDF</span>
+        </div>
+        <div class="doc__label">03 · Reflection</div>
+        <h3>Reflection</h3>
+        <p>comming soon...</p>
+        <span class="doc__btn">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEXT / NAV ============ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="reveal" style="display:flex; gap:16px; flex-wrap:wrap; justify-content:space-between; align-items:center;">
+      <a href="projects.html" class="btn btn--ghost">← All projects</a>
+      <a href="index.html" class="btn btn--primary">Back to home</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <a href="index.html" class="brand"><span class="brand__mark">IA</span><span>Ibrahim Afkir</span></a>
+        <p class="muted" style="margin-top:16px; font-size:0.94rem;">AI developer specialising in computer vision and the applications built on it.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Pages</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="internship.html">Internship</a>
+      </div>
+      <div class="footer__col">
+        <h4>Elsewhere</h4>
+        <a href="#" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/ibrahim-afkir/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="mailto:brahim-afkir@hotmail.com">Email ↗</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Ibrahim Afkir</span>
+      <span class="mono">Designed &amp; built · e-portfolio</span>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

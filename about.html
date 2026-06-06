@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About · Ibrahim Afkir</title>
+<meta name="description" content="About Ibrahim Afkir — AI developer. (Page in progress.)" />
+<link rel="icon" href="images/favicon-32x32.png" type="image/png" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+/* ============ ABOUT PAGE (placeholder) ============ */
+.wip { display: flex; align-items: flex-start; gap: 14px; background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: var(--r-lg); padding: 18px 22px; margin-bottom: clamp(32px, 5vw, 52px); box-shadow: var(--shadow-xs); }
+.wip svg { flex: none; width: 22px; height: 22px; color: var(--accent-ink); margin-top: 2px; }
+.wip strong { display: block; color: var(--ink); }
+.wip span { color: var(--ink-2); font-size: 0.95rem; }
+
+.about-grid { display: grid; grid-template-columns: 0.7fr 1.3fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
+.about-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-xl); padding: 30px 26px; box-shadow: var(--shadow-sm); text-align: center; position: sticky; top: 88px; }
+.about-card img { width: 200px; max-width: 78%; height: auto; margin: 0 auto 18px; display: block; }
+.about-card h3 { font-size: 1.3rem; }
+.about-card .role { color: var(--muted); font-family: var(--mono); font-size: 0.82rem; margin-top: 6px; letter-spacing: 0.02em; }
+.about-card__links { display: grid; gap: 10px; margin-top: 24px; }
+.about-card__links .btn { justify-content: center; width: 100%; }
+
+.about-bio h1 { margin-top: 14px; }
+.about-bio p { color: var(--ink-2); font-size: 1.05rem; line-height: 1.7; margin-top: 16px; max-width: 62ch; }
+.about-bio p strong { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 760px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-card { position: static; max-width: 360px; margin-inline: auto; }
+}
+</style>
+</head>
+<body data-page="about">
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="brand" aria-label="Ibrahim Afkir — home">
+      <span class="brand__mark">IA</span>
+      <span>Ibrahim Afkir <span class="brand__sub">/ AI dev</span></span>
+    </a>
+    <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <div class="nav__links">
+      <a href="index.html" class="nav__link">Home</a>
+      <a href="about.html" class="nav__link is-active">About</a>
+      <a href="projects.html" class="nav__link">Projects</a>
+      <a href="internship.html" class="nav__link">Internship</a>
+      <span class="nav__cta"><a href="mailto:brahim-afkir@hotmail.com" class="btn btn--ghost btn--sm">Get in touch</a></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ ABOUT ============ -->
+<header class="section">
+  <div class="container">
+
+    <div class="wip reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+      <div>
+        <strong>This page is still being updated</strong>
+        <span>I still need to edit the text and add more about myself.</span>
+      </div>
+    </div>
+
+    <div class="about-grid reveal" data-delay="1">
+      <aside class="about-card">
+        <img src="images/small-profile.png" alt="Ibrahim Afkir" />
+        <h3>Ibrahim Afkir</h3>
+        <div class="role">AI Developer · Belgium</div>
+        <div class="about-card__links">
+          <a href="https://www.linkedin.com/in/ibrahim-afkir/" target="_blank" rel="noopener" class="btn btn--accent">LinkedIn</a>
+          <a href="mailto:brahim-afkir@hotmail.com" class="btn btn--ghost">Email me</a>
+          <a href="docs/cv.pdf" target="_blank" rel="noopener" class="btn btn--primary">Download CV</a>
+        </div>
+      </aside>
+
+      <div class="about-bio">
+        <span class="eyebrow">About me</span>
+        <h1 class="h2">A little about me</h1>
+        <p>My journey in IT began at the <strong>Specialized Institute of Applied Technology</strong>, where I studied <strong>computer networks</strong> and earned a diploma as a Specialized Technician. The program focused mostly on hardware, but ever since I was young, I've been more fascinated by <strong>software</strong> — how websites, apps, and games are built.</p>
+        <p>That passion led me to continue my studies in <strong>Applied Computer Science</strong> at <strong>Thomas More University</strong>, which offers a strong, future-oriented foundation including modern fields like <strong>artificial intelligence</strong>. I'm very happy with that decision, as I can clearly see my growth both technically and personally.</p>
+        <p>After earning my bachelor's degree, I aim to work as a developer, applying the knowledge and skills I gained at Thomas More in a real-world company setting — while also planning to build my own tech startup.</p>
+        <p>Outside of tech, I enjoy swimming and horseback riding. One of my more unique hobbies is collecting old-timer cars — something I love doing in my free time.</p>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <a href="index.html" class="brand"><span class="brand__mark">IA</span><span>Ibrahim Afkir</span></a>
+        <p class="muted" style="margin-top:16px; font-size:0.94rem;">AI developer specialising in computer vision and the applications built on it.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Pages</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="internship.html">Internship</a>
+      </div>
+      <div class="footer__col">
+        <h4>Elsewhere</h4>
+        <a href="#" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/ibrahim-afkir/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="mailto:brahim-afkir@hotmail.com">Email ↗</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Ibrahim Afkir</span>
+      <span class="mono">Designed &amp; built · e-portfolio</span>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
