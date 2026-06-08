@@ -3,9 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Internship — AI-Assisted Puzzle Solver · Ibrahim Afkir</title>
+<title>Internship · AI-Assisted Puzzle Solver · Ibrahim Afkir</title>
 <meta name="description" content="Internship case study: a computer-vision application that scans physical puzzles, digitises them, and generates solving hints." />
 <link rel="icon" href="images/favicon-32x32.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Poppins:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css" />
 <style>
 /* ============ INTERNSHIP PAGE ============ */
@@ -34,7 +37,7 @@
 .case-hero__meta .v { font-size: 1.02rem; font-weight: 500; margin-top: 4px; }
 .case-hero__visual { position: relative; aspect-ratio: 1/1; max-width: 440px; margin-inline: auto; display: grid; place-items: center; }
 .case-hero__visual::before { content: ""; position: absolute; width: 82%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, var(--accent-soft) 0%, transparent 68%); z-index: 0; }
-/* ground shadow under the floating robot — grows & fades as it rises */
+/* ground shadow under the floating robot - grows & fades as it rises */
 .case-hero__visual::after {
   content: ""; position: absolute; bottom: 2%; left: 50%; z-index: 0;
   width: 44%; height: 26px; border-radius: 50%;
@@ -132,26 +135,20 @@ section.flow .container { position: relative; }
 
 /* --- Documents --- */
 .docs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.doc {
-  display: flex; flex-direction: column; gap: 16px;
-  background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-lg);
-  padding: 26px 24px 24px; box-shadow: var(--shadow-sm);
-  transition: transform 0.45s var(--ease), box-shadow 0.45s, border-color 0.3s;
-  position: relative; overflow: hidden;
-}
-.doc::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); transform: scaleY(0); transform-origin: top; transition: transform 0.4s var(--ease); }
+.doc { position: relative; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-xs); transition: transform 0.4s var(--ease), box-shadow 0.4s, border-color 0.3s; }
 .doc:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--accent-line); }
+.doc::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); transform: scaleY(0); transform-origin: top; transition: transform 0.4s var(--ease); z-index: 2; }
 .doc:hover::after { transform: scaleY(1); }
-.doc__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.doc__icon { width: 46px; height: 46px; border-radius: var(--r-sm); background: var(--accent-soft); border: 1px solid var(--accent-line); display: grid; place-items: center; color: var(--accent-ink); }
+.doc__head { background: linear-gradient(140deg, oklch(0.95 0.045 var(--accent-h)), oklch(0.85 0.10 var(--accent-h))); padding: 22px 24px; display: flex; align-items: center; justify-content: space-between; }
+.doc__icon { width: 46px; height: 46px; border-radius: 12px; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.85); color: var(--accent-ink); display: grid; place-items: center; }
 .doc__icon svg { width: 23px; height: 23px; }
-.doc__ext { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid var(--line); border-radius: 999px; padding: 0.3em 0.7em; }
-.doc__label { font-family: var(--mono); font-size: 0.72rem; color: var(--accent-ink); text-transform: uppercase; letter-spacing: 0.1em; }
-.doc h3 { font-size: 1.22rem; margin-top: 2px; }
-.doc p { font-size: 0.9rem; color: var(--muted); line-height: 1.5; flex: 1; }
-.doc__btn { margin-top: 4px; display: inline-flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 0.8em 1.1em; border-radius: var(--r-sm); background: var(--ink); color: var(--bg); font-weight: 500; font-size: 0.92rem; transition: background 0.25s, transform 0.4s var(--ease); }
+.doc__ext { font-family: var(--mono); font-size: 0.7rem; color: var(--accent-ink); background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.7); border-radius: 999px; padding: 0.3em 0.7em; letter-spacing: 0.04em; }
+.doc__body { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.doc__body h3 { font-size: 1.22rem; }
+.doc__body p { font-size: 0.9rem; color: var(--muted); line-height: 1.5; flex: 1; }
+.doc__btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 4px; padding: 0.78em 1.1em; border-radius: 10px; background: transparent; color: var(--accent-ink); border: 1px solid var(--accent-line); font-weight: 600; font-size: 0.92rem; transition: background 0.25s, color 0.25s, transform 0.35s var(--ease), border-color 0.25s; }
 .doc__btn svg { width: 1.05em; height: 1.05em; transition: transform 0.35s var(--ease); }
-.doc:hover .doc__btn { background: var(--accent); }
+.doc:hover .doc__btn { background: var(--accent); color: #fff; border-color: var(--accent); }
 .doc:hover .doc__btn svg { transform: translate(2px, -2px); }
 
 /* --- Supporting docs --- */
@@ -188,10 +185,7 @@ section.flow .container { position: relative; }
 <!-- ============ NAV ============ -->
 <nav class="nav">
   <div class="nav__inner">
-    <a href="index.html" class="brand" aria-label="Ibrahim Afkir — home">
-      <span class="brand__mark">IA</span>
-      <span>Ibrahim Afkir <span class="brand__sub">/ AI dev</span></span>
-    </a>
+    <a href="index.html" class="brand" aria-label="Ibrahim Afkir - home">Ibrahim Afkir</a>
     <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
@@ -229,7 +223,7 @@ section.flow .container { position: relative; }
   <div class="container">
     <div class="reveal" style="max-width:760px; margin-inline:auto; text-align:center;">
       <span class="eyebrow" style="justify-content:center;">The company</span>
-      <p class="lead" style="margin-top:20px; color:var(--ink-2);">Smart Toys &amp; Games is a Belgian company that designs physical and digital puzzles and games for children and families. Their logic puzzles challenge players to fit uniquely shaped pieces onto a board — <em style="font-style:normal; color:var(--accent-ink);">easy to start, but hard to finish.</em></p>
+      <p class="lead" style="margin-top:20px; color:var(--ink-2);">Smart Toys &amp; Games is a Belgian company that designs physical and digital puzzles and games for children and families. Their logic puzzles challenge players to fit uniquely shaped pieces onto a board: <em style="font-style:normal; color:var(--accent-ink);">easy to start, but hard to finish.</em></p>
     </div>
   </div>
 </section>
@@ -245,7 +239,7 @@ section.flow .container { position: relative; }
       <div class="flow__text">
         <span class="eyebrow">The problem</span>
         <h2 class="flow__title">When you're stuck, it's all or nothing</h2>
-        <p>When a player got stuck, the only option was a printed booklet — but it showed the <strong>full solution at once</strong>. There was no way to get just a small hint. And if the player was trying a challenge outside the booklet, there was no help at all: the booklet only covered <strong>120 challenges</strong> and their solutions, while the puzzle had far more possible configurations.</p>
+        <p>When a player got stuck, the only option was a printed booklet, but it showed the <strong>full solution at once</strong>. There was no way to get just a small hint. And if the player was trying a challenge outside the booklet, there was no help at all: the booklet only covered <strong>120 challenges</strong> and their solutions, while the puzzle had far more possible configurations.</p>
       </div>
       <div class="flow__media"><img src="images/booklet.jpg" alt="A child solving the puzzle beside the printed solution booklet" /></div>
     </div>
@@ -257,7 +251,7 @@ section.flow .container { position: relative; }
       <div class="flow__text">
         <span class="eyebrow">The solution</span>
         <h2 class="flow__title">Just enough help, exactly when it's needed</h2>
-        <p>That's where I came in. I developed a computer vision app that scanned the physical puzzle board through the phone camera, detected every piece and its position, and rebuilt the board digitally. From that digital state, the app could check whether the puzzle was <strong>still solvable</strong> and provide <strong>progressive hints</strong> — starting with a single cell, then revealing more, up to the full piece placement. If the current placement led to a dead end, it identified exactly <strong>which pieces needed to be removed</strong>. Everything ran on the user's device — <strong>no backend, no installation needed</strong>.</p>
+        <p>That's where I came in. I developed a computer vision app that scanned the physical puzzle board through the phone camera, detected every piece and its position, and rebuilt the board digitally. From that digital state, the app could check whether the puzzle was <strong>still solvable</strong> and provide <strong>progressive hints</strong>, starting with a single cell, then revealing more, up to the full piece placement. If the current placement led to a dead end, it identified exactly <strong>which pieces needed to be removed</strong>. Everything ran on the user's device, with <strong>no backend, no installation needed</strong>.</p>
       </div>
     </div>
 
@@ -317,17 +311,15 @@ section.flow .container { position: relative; }
 <section class="section">
   <div class="container">
     <div class="section-head reveal">
-      <span class="eyebrow">Key technical highlights</span>
-      <h2 class="h2">The hard parts</h2>
+      <span class="eyebrow">Engineering</span>
+      <h2 class="h2">Key technical highlights</h2>
     </div>
     <div class="hl-grid reveal" data-delay="1">
-      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg></span><p>Generated <strong>1,800+ synthetic training images</strong> in Blender with fully automated annotation.</p></div>
-      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.2"/></svg></span><p>Labeled <strong>240+ real photos</strong> manually in Roboflow using instance segmentation.</p></div>
-      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></svg></span><p>Trained a <strong>YOLOv26 Nano</strong> model with a two-stage approach — pretrained on synthetic data, then finetuned on real photos — reaching <strong>99.5% mAP</strong>.</p></div>
-      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m8 9-3 3 3 3M16 9l3 3-3 3"/></svg></span><p>Ported the entire computer-vision pipeline from <strong>Python/OpenCV to JavaScript</strong>, running in the browser via <strong>ONNX Runtime</strong> and <strong>WebAssembly</strong>.</p></div>
+      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg></span><p>Built the dataset two ways: <strong>1,800+ synthetic images</strong> rendered in Blender with fully automated annotation, plus <strong>240+ real photos</strong> hand-labeled with instance segmentation in Roboflow.</p></div>
+      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></svg></span><p>Trained a <strong>YOLOv26 Nano</strong> model with a two-stage approach, pretrained on synthetic data, then finetuned on real photos, reaching <strong>99.5% mAP</strong>.</p></div>
+      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m8 9-3 3 3 3M16 9l3 3-3 3"/></svg></span><p>Ported the entire computer-vision pipeline from <strong>Python/OpenCV to pure JavaScript</strong>, running fully in the browser, with the YOLO model executed in <strong>WebAssembly via ONNX Runtime</strong>. No server.</p></div>
       <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2"/></svg></span><p>Built a <strong>backtracking solver</strong> with progressive hints (one cell → two cells → full piece) and solvability checking.</p></div>
       <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span><p>Applied the <strong>same architecture to a second puzzle</strong> with a completely different board, grid, and piece shapes.</p></div>
-      <div class="hl-card"><span class="hl-card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="6" width="20" height="12" rx="6"/><path d="M6 12h4M8 10v4M15 13h.01M18 11h.01"/></svg></span><p>Also contributed to a <strong>third project — an AR game</strong> — labeling 500+ real images for instance segmentation.</p></div>
     </div>
     <div class="reveal" style="margin-top: clamp(40px,6vw,58px);">
       <span class="eyebrow">Built with</span>
@@ -366,44 +358,61 @@ section.flow .container { position: relative; }
 </section>
 
 
+<!-- ============ REFLECTION ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal" style="max-width:760px;">
+      <span class="eyebrow">Reflection</span>
+      <h2 class="h2">What I took away</h2>
+    </div>
+    <div class="reveal" data-delay="1" style="max-width:760px; display:grid; gap:22px; margin-top:8px; font-size:1.06rem; line-height:1.7; color:var(--ink-2);">
+      <p>This internship was my first experience working on an AI project in a professional environment, and it was very different from anything I had done at school. The project I built will actually be used by children playing Smart NV puzzles, and knowing that my work has a real and lasting impact makes me proud of what I accomplished.</p>
+      <p>Working alongside senior developers taught me the value of asking the right questions. AI tools can help you code faster, but real experience and guidance from people who have been through similar challenges saves you from wasting time on approaches that will not work. On the technical side, I grew significantly in computer vision, model training, data generation, and building full applications from scratch. On the personal side, I learned when to push through a challenge and when to speak up and redirect, which is a skill just as important as any technical one.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============ DOCUMENTS ============ -->
 <section class="section" id="documents">
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">Documentation</span>
-      <h2 class="h2">Required documents</h2>
-      <p class="lead" style="color:var(--ink-2);">The three mandatory deliverables for assessment. Each opens in a new tab.</p>
+      <h2 class="h2">Project deliverables</h2>
+      <p class="lead" style="color:var(--ink-2);">Three documents that tell the full story of the internship: the project plan, the realization thesis, and a personal reflection.</p>
     </div>
     <div class="docs-grid">
       <a href="docs/project-plan.pdf" target="_blank" rel="noopener" class="doc reveal" data-delay="1">
-        <div class="doc__top">
+        <div class="doc__head">
           <div class="doc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></div>
           <span class="doc__ext">PDF</span>
         </div>
-        <div class="doc__label">01 · Plan</div>
-        <h3>Project Plan</h3>
-        <p>Scope, goals, approach, and planning set out at the start of the internship.</p>
-        <span class="doc__btn">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <div class="doc__body">
+          <h3>Project Plan</h3>
+          <p>Scope, goals, approach, and planning set out at the start of the internship.</p>
+          <span class="doc__btn">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        </div>
       </a>
       <a href="docs/realization-document.pdf" target="_blank" rel="noopener" class="doc reveal" data-delay="2">
-        <div class="doc__top">
+        <div class="doc__head">
           <div class="doc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></div>
           <span class="doc__ext">PDF</span>
         </div>
-        <div class="doc__label">02 · Thesis</div>
-        <h3>Realization Document</h3>
-        <p>The full thesis detailing what was built and how, with results and analysis.</p>
-        <span class="doc__btn">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <div class="doc__body">
+          <h3>Realization Document</h3>
+          <p>The full thesis detailing what was built and how, with results and analysis.</p>
+          <span class="doc__btn">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        </div>
       </a>
       <a href="docs/reflection.pdf" target="_blank" rel="noopener" class="doc reveal" data-delay="3">
-        <div class="doc__top">
+        <div class="doc__head">
           <div class="doc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 8v4l3 2"/></svg></div>
           <span class="doc__ext">PDF</span>
         </div>
-        <div class="doc__label">03 · Reflection</div>
-        <h3>Reflection</h3>
-        <p>A personal account of the internship — the challenges I faced, what I learned, and how I grew.</p>
-        <span class="doc__btn">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <div class="doc__body">
+          <h3>Reflection</h3>
+          <p>A personal account of the internship: the challenges I faced, what I learned, and how I grew.</p>
+          <span class="doc__btn">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        </div>
       </a>
     </div>
   </div>
@@ -424,8 +433,8 @@ section.flow .container { position: relative; }
   <div class="container">
     <div class="footer__inner">
       <div class="footer__brand">
-        <a href="index.html" class="brand"><span class="brand__mark">IA</span><span>Ibrahim Afkir</span></a>
-        <p class="muted" style="margin-top:16px; font-size:0.94rem;">AI developer specialising in computer vision and the applications built on it.</p>
+        <a href="index.html" class="brand">Ibrahim Afkir</a>
+        <p class="muted" style="margin-top:16px; font-size:0.94rem;">AI developer, building intelligent systems that solve real problems.</p>
       </div>
       <div class="footer__col">
         <h4>Pages</h4>
@@ -436,14 +445,12 @@ section.flow .container { position: relative; }
       </div>
       <div class="footer__col">
         <h4>Elsewhere</h4>
-        <a href="#" target="_blank" rel="noopener">GitHub ↗</a>
         <a href="https://www.linkedin.com/in/ibrahim-afkir/" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a href="mailto:brahim-afkir@hotmail.com">Email ↗</a>
       </div>
     </div>
     <div class="footer__bottom">
       <span>© 2026 Ibrahim Afkir</span>
-      <span class="mono">Designed &amp; built · e-portfolio</span>
     </div>
   </div>
 </footer>

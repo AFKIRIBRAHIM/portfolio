@@ -4,31 +4,41 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>About · Ibrahim Afkir</title>
-<meta name="description" content="About Ibrahim Afkir — AI developer. (Page in progress.)" />
+<meta name="description" content="About Ibrahim Afkir, AI developer. Background, what drives me, and life beyond the screen." />
 <link rel="icon" href="images/favicon-32x32.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Poppins:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css" />
 <style>
-/* ============ ABOUT PAGE (placeholder) ============ */
-.wip { display: flex; align-items: flex-start; gap: 14px; background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: var(--r-lg); padding: 18px 22px; margin-bottom: clamp(32px, 5vw, 52px); box-shadow: var(--shadow-xs); }
-.wip svg { flex: none; width: 22px; height: 22px; color: var(--accent-ink); margin-top: 2px; }
-.wip strong { display: block; color: var(--ink); }
-.wip span { color: var(--ink-2); font-size: 0.95rem; }
-
+/* ============ ABOUT PAGE ============ */
 .about-grid { display: grid; grid-template-columns: 0.7fr 1.3fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
 .about-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-xl); padding: 30px 26px; box-shadow: var(--shadow-sm); text-align: center; position: sticky; top: 88px; }
 .about-card img { width: 200px; max-width: 78%; height: auto; margin: 0 auto 18px; display: block; }
 .about-card h3 { font-size: 1.3rem; }
 .about-card .role { color: var(--muted); font-family: var(--mono); font-size: 0.82rem; margin-top: 6px; letter-spacing: 0.02em; }
-.about-card__links { display: grid; gap: 10px; margin-top: 24px; }
-.about-card__links .btn { justify-content: center; width: 100%; }
+.about-card__social { display: flex; gap: 12px; justify-content: center; margin-top: 24px; }
+.about-card__social a { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--line-2); color: var(--ink-2); box-shadow: var(--shadow-xs); font-family: 'Poppins', var(--font); font-weight: 700; font-size: 1rem; letter-spacing: 0; transition: background 0.25s, color 0.25s, transform 0.35s var(--ease), border-color 0.25s; }
+.about-card__social a:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-3px); }
+.about-card__social svg { width: 20px; height: 20px; }
 
 .about-bio h1 { margin-top: 14px; }
-.about-bio p { color: var(--ink-2); font-size: 1.05rem; line-height: 1.7; margin-top: 16px; max-width: 62ch; }
-.about-bio p strong { color: var(--ink); font-weight: 600; }
+.about-bio p { color: var(--ink-2); font-size: 1.05rem; line-height: 1.7; margin-top: 16px; max-width: 64ch; }
+.about-bio p strong { color: var(--ink); font-weight: 700; }
+
+/* --- Hobbies --- */
+.hobbies { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.hobby { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-xl); padding: clamp(26px, 3vw, 36px); box-shadow: var(--shadow-xs); transition: transform .4s var(--ease), box-shadow .4s, border-color .3s; }
+.hobby:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--accent-line); }
+.hobby__art { width: 124px; height: 124px; border-radius: 50%; background: radial-gradient(circle, var(--accent-soft) 0%, transparent 72%); display: grid; place-items: center; margin-bottom: 20px; }
+.hobby__art img { width: 80%; height: auto; }
+.hobby h3 { font-size: 1.32rem; margin-bottom: 12px; }
+.hobby p { color: var(--ink-2); line-height: 1.7; }
 
 @media (max-width: 760px) {
   .about-grid { grid-template-columns: 1fr; }
   .about-card { position: static; max-width: 360px; margin-inline: auto; }
+  .hobbies { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -37,10 +47,7 @@
 <!-- ============ NAV ============ -->
 <nav class="nav">
   <div class="nav__inner">
-    <a href="index.html" class="brand" aria-label="Ibrahim Afkir — home">
-      <span class="brand__mark">IA</span>
-      <span>Ibrahim Afkir <span class="brand__sub">/ AI dev</span></span>
-    </a>
+    <a href="index.html" class="brand" aria-label="Ibrahim Afkir - home">Ibrahim Afkir</a>
     <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
@@ -54,50 +61,61 @@
   </div>
 </nav>
 
-<!-- ============ ABOUT ============ -->
+<!-- ============ PROFESSIONAL ============ -->
 <header class="section">
   <div class="container">
-
-    <div class="wip reveal">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
-      <div>
-        <strong>This page is still being updated</strong>
-        <span>I still need to edit the text and add more about myself.</span>
-      </div>
-    </div>
-
-    <div class="about-grid reveal" data-delay="1">
+    <div class="about-grid reveal">
       <aside class="about-card">
         <img src="images/small-profile.png" alt="Ibrahim Afkir" />
         <h3>Ibrahim Afkir</h3>
-        <div class="role">AI Developer · Belgium</div>
-        <div class="about-card__links">
-          <a href="https://www.linkedin.com/in/ibrahim-afkir/" target="_blank" rel="noopener" class="btn btn--accent">LinkedIn</a>
-          <a href="mailto:brahim-afkir@hotmail.com" class="btn btn--ghost">Email me</a>
-          <a href="docs/cv.pdf" target="_blank" rel="noopener" class="btn btn--primary">Download CV</a>
+        <div class="role">AI Developer</div>
+        <div class="about-card__social">
+          <a href="https://www.linkedin.com/in/ibrahim-afkir/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="mailto:brahim-afkir@hotmail.com" aria-label="Email" title="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+          <a href="docs/cv.pdf" target="_blank" rel="noopener" aria-label="Download CV" title="Download CV">CV</a>
         </div>
       </aside>
 
       <div class="about-bio">
         <span class="eyebrow">About me</span>
-        <h1 class="h2">A little about me</h1>
-        <p>My journey in IT began at the <strong>Specialized Institute of Applied Technology</strong>, where I studied <strong>computer networks</strong> and earned a diploma as a Specialized Technician. The program focused mostly on hardware, but ever since I was young, I've been more fascinated by <strong>software</strong> — how websites, apps, and games are built.</p>
-        <p>That passion led me to continue my studies in <strong>Applied Computer Science</strong> at <strong>Thomas More University</strong>, which offers a strong, future-oriented foundation including modern fields like <strong>artificial intelligence</strong>. I'm very happy with that decision, as I can clearly see my growth both technically and personally.</p>
-        <p>After earning my bachelor's degree, I aim to work as a developer, applying the knowledge and skills I gained at Thomas More in a real-world company setting — while also planning to build my own tech startup.</p>
-        <p>Outside of tech, I enjoy swimming and horseback riding. One of my more unique hobbies is collecting old-timer cars — something I love doing in my free time.</p>
+        <h1 class="h2">Who I am</h1>
+        <p>My journey in IT began at the Specialized Institute of Applied Technology, where I studied computer networks and earned a diploma as a <strong>Specialized Technician</strong>. While the program focused on hardware, I was always more drawn to software and how things work behind the scenes.</p>
+        <p>That curiosity led me to <strong>Applied Computer Science</strong> at <strong>Thomas More University</strong>, where I specialized in <strong>AI</strong>. Through courses in <strong>NLP, computer vision, and web development</strong>, I discovered what truly drives me: developing AI-powered systems that solve real problems and add real value to a product. There is something deeply satisfying about taking an idea, turning it into an intelligent system, and seeing it make a difference.</p>
+        <p>I want to continue working as an <strong>AI developer</strong>. I find genuine passion and enjoyment in this field, and I want to keep growing, not only technically but also professionally, and why not become an <strong>AI engineer</strong> in the future. I'm someone who never wants to stand still. There is always more to learn, more to build, and more to explore, whether that means taking on new challenges, pursuing entrepreneurial opportunities, or simply pushing myself further.</p>
       </div>
     </div>
-
   </div>
 </header>
+
+<!-- ============ HOBBIES ============ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Beyond work</span>
+      <h2 class="h2">A little more about me</h2>
+    </div>
+    <div class="hobbies">
+      <div class="hobby reveal" data-delay="1">
+        <div class="hobby__art"><img src="images/surf.svg" alt="Surfing" /></div>
+        <h3>In the water</h3>
+        <p>Swimming has been part of my life since I was a kid. It's something I do almost every day in the summer. Recently I discovered surfing on a trip to Taghazout, Morocco, and I honestly regret not trying it sooner. But it's not just about the surfing: Taghazout is a place where people come from all over the world, and the community you build there is what makes it special. It quickly became my favourite hobby.</p>
+      </div>
+      <div class="hobby reveal" data-delay="2">
+        <div class="hobby__art"><img src="images/wheel.svg" alt="Cars" /></div>
+        <h3>On the road</h3>
+        <p>Cars have been a passion of mine for as long as I can remember. Old or new, I love everything about them: the power, the speed, the technology, and the mechanics. For me it's not just about driving. It's about feeling it. I have a special appreciation for old cars because they carry memories and remind us how great classic engineering was. Together with a friend, we buy damaged cars, repair them, and bring them back to life. Looking ahead, I want to start collecting a few old-timers and build project cars as well.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="container">
     <div class="footer__inner">
       <div class="footer__brand">
-        <a href="index.html" class="brand"><span class="brand__mark">IA</span><span>Ibrahim Afkir</span></a>
-        <p class="muted" style="margin-top:16px; font-size:0.94rem;">AI developer specialising in computer vision and the applications built on it.</p>
+        <a href="index.html" class="brand">Ibrahim Afkir</a>
+        <p class="muted" style="margin-top:16px; font-size:0.94rem;">AI developer, building intelligent systems that solve real problems.</p>
       </div>
       <div class="footer__col">
         <h4>Pages</h4>
@@ -108,14 +126,12 @@
       </div>
       <div class="footer__col">
         <h4>Elsewhere</h4>
-        <a href="#" target="_blank" rel="noopener">GitHub ↗</a>
         <a href="https://www.linkedin.com/in/ibrahim-afkir/" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a href="mailto:brahim-afkir@hotmail.com">Email ↗</a>
       </div>
     </div>
     <div class="footer__bottom">
       <span>© 2026 Ibrahim Afkir</span>
-      <span class="mono">Designed &amp; built · e-portfolio</span>
     </div>
   </div>
 </footer>
