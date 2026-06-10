@@ -14,6 +14,7 @@
   --surface-2: oklch(0.972 0.005 290);
   --ink:       oklch(0.235 0.02 285);
   --ink-2:     oklch(0.44 0.02 285);
+  --ink-title: oklch(0.28 0.008 285);  /* heading ink — near-black, slightly toward gray */
   --muted:     oklch(0.585 0.014 285);
   --line:      oklch(0.912 0.006 290);
   --line-2:    oklch(0.86 0.008 290);
@@ -73,11 +74,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 ::selection { background: var(--accent-soft); color: var(--accent-ink); }
 
 /* ---------- Typography ---------- */
-h1, h2, h3, h4 { font-family: 'Poppins', var(--font); line-height: 1.12; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-wrap: balance; }
-.display, .h1, .h2, .h3, .h4 { font-family: 'Poppins', var(--font); }
+h1, h2, h3, h4 { font-family: var(--font); line-height: 1.12; font-weight: 700; letter-spacing: -0.01em; color: var(--ink-title); text-wrap: balance; }
+.display, .h1, .h2, .h3, .h4 { font-family: var(--font); }
 .display {
   font-size: clamp(2.6rem, 6.4vw, 5rem);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: -0.015em;
   line-height: 1.05;
 }
@@ -182,6 +183,29 @@ h1, h2, h3, h4 { font-family: 'Poppins', var(--font); line-height: 1.12; font-we
   height: 2px; background: var(--accent); border-radius: 2px;
 }
 .nav__cta { margin-left: 6px; }
+/* Distinctive nav call-to-action: soft accent pill with a live pulse dot */
+.nav__cta .btn {
+  background: var(--accent-soft); color: var(--accent-ink);
+  border: 1px solid var(--accent-line); border-radius: 999px;
+  box-shadow: none; font-weight: 600; gap: 8px;
+  transition: background .25s, color .25s, border-color .25s, transform .35s var(--ease), box-shadow .35s;
+}
+.nav__cta .btn::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%; flex: none;
+  background: var(--accent); animation: navPulse 2.4s var(--ease) infinite;
+}
+.nav__cta .btn:hover {
+  background: var(--accent); color: oklch(0.99 0.01 var(--accent-h));
+  border-color: var(--accent); transform: translateY(-2px);
+  box-shadow: 0 8px 20px oklch(0.55 0.17 var(--accent-h) / 0.35);
+}
+.nav__cta .btn:hover::before { background: oklch(0.99 0.01 var(--accent-h)); animation: none; }
+@keyframes navPulse {
+  0%   { box-shadow: 0 0 0 0 oklch(0.55 0.17 var(--accent-h) / 0.5); }
+  70%  { box-shadow: 0 0 0 6px oklch(0.55 0.17 var(--accent-h) / 0); }
+  100% { box-shadow: 0 0 0 0 oklch(0.55 0.17 var(--accent-h) / 0); }
+}
+@media (prefers-reduced-motion: reduce) { .nav__cta .btn::before { animation: none; } }
 .nav__toggle { display: none; width: 40px; height: 40px; border-radius: var(--r-xs); align-items: center; justify-content: center; }
 .nav__toggle:hover { background: var(--surface-2); }
 .nav__toggle svg { width: 22px; height: 22px; }

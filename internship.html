@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Poppins:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="styles.css?v=5" />
 <style>
 /* ============ INTERNSHIP PAGE ============ */
 
@@ -123,6 +123,19 @@ section.flow .container { position: relative; }
 .gallery__side .ph { aspect-ratio: 16/10; border-radius: var(--r-lg); }
 .gallery__strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 18px; }
 .gallery__strip .ph { aspect-ratio: 4/3; border-radius: var(--r-lg); }
+
+/* --- Demo videos --- */
+.demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px, 3vw, 28px); }
+.demo { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .4s var(--ease), box-shadow .4s, border-color .3s; }
+.demo:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--accent-line); }
+.demo__media { background: oklch(0.18 0.02 285); display: grid; place-items: center; }
+.demo__media video { width: 100%; height: auto; max-height: 74vh; display: block; }
+.demo__cap { display: flex; align-items: center; gap: 13px; padding: 16px 20px; border-top: 1px solid var(--line); }
+.demo__badge { flex: none; width: 36px; height: 36px; border-radius: var(--r-sm); background: var(--accent-soft); border: 1px solid var(--accent-line); color: var(--accent-ink); display: grid; place-items: center; }
+.demo__badge svg { width: 19px; height: 19px; }
+.demo__cap h3 { font-size: 1.06rem; }
+.demo__cap p { font-size: 0.84rem; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+@media (max-width: 760px) { .demo-grid { grid-template-columns: 1fr; } }
 
 /* --- Tech stack --- */
 .stack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
@@ -247,7 +260,7 @@ section.flow .container { position: relative; }
     <!-- Solution -->
     <div class="flow__row reveal">
       <span class="flow__node"></span>
-      <div class="flow__media flow__media--contain" style="aspect-ratio:16/11;"><img src="images/iq-waves.png" alt="The physical IQ Waves board converted into a digital board in the app" /></div>
+      <div class="flow__media" style="aspect-ratio:11/9;"><img src="images/iqwaves.png" alt="The IQ Waves puzzle rebuilt digitally in the app, showing the board, a progressive hint, and the controls" /></div>
       <div class="flow__text">
         <span class="eyebrow">The solution</span>
         <h2 class="flow__title">Just enough help, exactly when it's needed</h2>
@@ -338,21 +351,25 @@ section.flow .container { position: relative; }
 <section class="section">
   <div class="container">
     <div class="section-head reveal">
-      <span class="eyebrow">Visuals</span>
-      <h2 class="h2">Screens &amp; demo</h2>
-      <p class="lead" style="color:var(--ink-2);">Coming Soon !</p>
+      <span class="eyebrow">Demo</span>
+      <h2 class="h2">See it in action</h2>
+      <p class="lead" style="color:var(--ink-2);">The same computer-vision pipeline running on two different puzzles, scanning the board, detecting every piece, and generating live hints, all in the browser.</p>
     </div>
-    <div class="gallery reveal">
-      <div class="ph ph--accent gallery__main"><span class="ph__label">main board UI / demo</span></div>
-      <div class="gallery__side">
-        <div class="ph"><span class="ph__label">camera modal</span></div>
-        <div class="ph"><span class="ph__label">detection output</span></div>
-      </div>
-    </div>
-    <div class="gallery__strip reveal" data-delay="1">
-      <div class="ph"><span class="ph__label">hint system</span></div>
-      <div class="ph"><span class="ph__label">solved state · confetti</span></div>
-      <div class="ph"><span class="ph__label">second puzzle</span></div>
+    <div class="demo-grid reveal" data-delay="1">
+      <figure class="demo">
+        <div class="demo__media"><video src="images/iq-waves-demo.mp4#t=0.5" controls preload="metadata" playsinline></video></div>
+        <figcaption class="demo__cap">
+          <span class="demo__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="m10 9 5 3-5 3z"/></svg></span>
+          <div><h3>IQ Waves</h3><p>The first puzzle — wave-shaped pieces on the original board.</p></div>
+        </figcaption>
+      </figure>
+      <figure class="demo">
+        <div class="demo__media"><video src="images/iq-stars-demo.mp4#t=0.5" controls preload="metadata" playsinline></video></div>
+        <figcaption class="demo__cap">
+          <span class="demo__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="m10 9 5 3-5 3z"/></svg></span>
+          <div><h3>IQ Stars</h3><p>The second puzzle — same architecture, a different board and pieces.</p></div>
+        </figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -423,7 +440,7 @@ section.flow .container { position: relative; }
   <div class="container">
     <div class="reveal" style="display:flex; gap:16px; flex-wrap:wrap; justify-content:space-between; align-items:center;">
       <a href="projects.html" class="btn btn--ghost">← All projects</a>
-      <a href="index.html" class="btn btn--primary">Back to home</a>
+      <a href="index.html" class="btn btn--accent">Back to home</a>
     </div>
   </div>
 </section>

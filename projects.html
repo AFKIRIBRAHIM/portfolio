@@ -9,12 +9,35 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Poppins:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="styles.css?v=5" />
 <style>
 /* ============ PROJECTS PAGE ============ */
 
-.projects-hero { padding-top: clamp(36px, 5vw, 64px); padding-bottom: clamp(28px, 4vw, 44px); }
-.projects-hero__lead { max-width: 52ch; margin-top: 18px; }
+.projects-hero { padding-top: clamp(24px, 4vw, 44px); padding-bottom: clamp(28px, 4vw, 44px); }
+.projects-hero__lead { max-width: 56ch; margin-top: 24px; }
+
+/* --- Image-collage hero banner --- */
+.phero-collage { position: relative; border-radius: var(--r-xl); overflow: hidden; min-height: clamp(260px, 40vw, 420px); display: grid; place-items: center; background: oklch(0.22 0.02 285); box-shadow: var(--shadow); }
+.phero-collage__imgs { position: absolute; inset: 0; z-index: 0; display: flex; align-items: center; justify-content: center; }
+.phero-collage__imgs > * { width: clamp(150px, 17vw, 230px); aspect-ratio: 16/11; object-fit: cover; border-radius: var(--r); border: 3px solid var(--bg); box-shadow: var(--shadow-lg); margin-left: clamp(-70px, -5vw, -44px); flex: none; }
+.phero-collage__imgs > *:first-child { margin-left: 0; }
+.phero-collage__imgs > *:nth-child(1) { transform: rotate(-7deg) translateY(8px); }
+.phero-collage__imgs > *:nth-child(2) { transform: rotate(4deg)  translateY(-10px); }
+.phero-collage__imgs > *:nth-child(3) { transform: rotate(-4deg) translateY(6px); }
+.phero-collage__imgs > *:nth-child(4) { transform: rotate(-1deg) translateY(-4px) scale(1.08); z-index: 3; } /* iq-waves — centerpiece */
+.phero-collage__imgs > *:nth-child(5) { transform: rotate(3deg)  translateY(8px); z-index: 2; }
+.phero-collage__imgs > *:nth-child(6) { transform: rotate(-3deg) translateY(-6px); }
+.phero-collage__imgs > *:nth-child(7) { transform: rotate(5deg)  translateY(8px); }
+.phero-collage__imgs > *:nth-child(8) { transform: rotate(-6deg) translateY(-8px); }
+.phero-collage__scrim { position: absolute; inset: 0; z-index: 1; background: radial-gradient(72% 92% at 50% 50%, oklch(0.18 0.03 285 / 0.52) 0%, oklch(0.15 0.03 285 / 0.80) 100%); }
+.phero-collage__content { position: relative; z-index: 2; text-align: center; padding: 24px; }
+.phero-collage__content .eyebrow { color: oklch(0.86 0.08 var(--accent-h)); }
+.phero-collage__content .display { color: #fff; margin-top: 12px; text-shadow: 0 2px 28px oklch(0.10 0.02 285 / 0.55); }
+
+/* hero stat strip */
+.phero__stats { display: flex; gap: clamp(26px, 4vw, 52px); flex-wrap: wrap; margin-top: 28px; }
+.phero__stat .n { font-family: var(--font); font-weight: 700; font-size: clamp(1.7rem, 3vw, 2.3rem); color: var(--ink-title); line-height: 1; letter-spacing: -0.02em; }
+.phero__stat .l { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-top: 9px; }
 
 /* work-in-progress notice */
 .wip { display: flex; align-items: flex-start; gap: 14px; background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: var(--r-lg); padding: 18px 22px; box-shadow: var(--shadow-xs); margin-bottom: 30px; }
@@ -44,6 +67,9 @@
 .pcard:hover .pcard__open, .pcard:focus-visible .pcard__open { opacity: 1; transform: none; }
 .pcard__flag { position: absolute; top: 12px; left: 12px; z-index: 2; font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; background: var(--accent); color: oklch(0.99 0.01 var(--accent-h)); padding: 0.32em 0.7em; border-radius: 999px; box-shadow: var(--shadow-sm); }
 .pcard__media-wrap { position: relative; }
+/* screenshots: show the whole image inside the frame instead of cropping/zooming */
+.pcard__media.is-contain { object-fit: contain; background: var(--surface-2); }
+.mcarousel__slide.is-contain { object-fit: contain; }
 
 /* --- Modal --- */
 .modal { position: fixed; inset: 0; z-index: 1000; display: none; align-items: flex-start; justify-content: center; padding: clamp(12px, 4vw, 40px); overflow-y: auto; }
@@ -135,16 +161,22 @@
 <!-- ============ HERO ============ -->
 <header class="section projects-hero">
   <div class="container hero-fade">
-    <div class="wip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
-      <div>
-        <strong>This page is still being updated</strong>
-        <span>These projects are from last year. I still need to add my most important project and make this page nicer.</span>
+    <div class="phero-collage reveal">
+      <div class="phero-collage__imgs" aria-hidden="true">
+        <img src="images/nlp0.JPG" alt="" loading="lazy" />
+        <img src="images/car1.JPG" alt="" loading="lazy" />
+        <img src="images/training1.JPG" alt="" loading="lazy" />
+        <img src="images/iq-waves-screen.JPG" alt="" loading="lazy" />
+        <img src="images/iq-stars-screen.JPG" alt="" loading="lazy" />
+        <video src="images/tennis.mp4#t=0.5" muted playsinline preload="metadata"></video>
+        <img src="images/a1.jpg" alt="" loading="lazy" />
+        <img src="images/figma.JPG" alt="" loading="lazy" />
+      </div>
+      <div class="phero-collage__scrim"></div>
+      <div class="phero-collage__content">
+        <h1 class="display">Selected work</h1>
       </div>
     </div>
-    <span class="eyebrow">Projects · 5</span>
-    <h1 class="h1" style="margin-top:16px;">Selected work</h1>
-    <p class="lead projects-hero__lead">A cross-section of what I've built, from full-stack web applications to networking and design work. Select any card for the full case. (More projects coming soon.)</p>
   </div>
 </header>
 
@@ -153,46 +185,99 @@
   <div class="container">
     <div class="grid proj-grid">
 
-      <!-- 01 - Incoming Student Administration -->
-      <article class="pcard reveal" tabindex="0" role="button" aria-label="Open: Incoming Student Administration">
-        <div class="pcard__media-wrap"><img src="images/figma.JPG" alt="Incoming Student Administration" class="pcard__media is-media" /></div>
+      <!-- 01 - AI-Assisted Puzzle Solver (Internship) -->
+      <article class="pcard reveal" tabindex="0" role="button" aria-label="Open: AI-Assisted Puzzle Solver">
+        <div class="pcard__media-wrap">
+          <span class="pcard__flag">Internship</span>
+          <img src="images/iq-waves-screen.JPG" alt="AI-Assisted Puzzle Solver" class="pcard__media is-media is-contain" />
+        </div>
         <div class="pcard__body">
-          <div class="pcard__head"><h3>Incoming Student Administration</h3><span class="pcard__num">01</span></div>
-          <p>A proof-of-concept to simplify Thomas More's admission process for incoming students and coordinators.</p>
-          <div class="pcard__foot"><div class="tags"><span class="tag">Figma</span><span class="tag">Analysis</span></div><span class="pcard__open">Open ↗</span></div>
+          <div class="pcard__head"><h3>AI-Assisted Puzzle Solver</h3><span class="pcard__num">01</span></div>
+          <p>A computer-vision app that scans a physical puzzle, rebuilds it digitally, and gives progressive solving hints — running entirely in the browser.</p>
+          <div class="pcard__foot"><div class="tags"><span class="tag">YOLO</span><span class="tag">Computer Vision</span></div><span class="pcard__open">Open ↗</span></div>
         </div>
         <template>
           <div class="mcarousel" data-carousel>
-            <img src="images/figma.JPG" alt="Incoming Student Administration - design 1" class="mcarousel__slide is-active" />
-            <img src="images/figma2.JPG" alt="Incoming Student Administration - design 2" class="mcarousel__slide" />
-            <img src="images/figma3.JPG" alt="Incoming Student Administration - design 3" class="mcarousel__slide" />
+            <img src="images/iq-waves-screen.JPG" alt="AI-Assisted Puzzle Solver — IQ Waves" class="mcarousel__slide is-contain is-active" />
+            <img src="images/iq-stars-screen.JPG" alt="AI-Assisted Puzzle Solver — IQ Stars" class="mcarousel__slide is-contain" />
             <button type="button" class="mcarousel__btn mcarousel__btn--prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
             <button type="button" class="mcarousel__btn mcarousel__btn--next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
             <div class="mcarousel__dots"></div>
           </div>
           <div class="mdetail mdetail__inner">
-            <div class="mdetail__num">Project 01 · Skills Integration 2</div>
-            <h2>Incoming Student Administration</h2>
-            <div class="mdetail__meta">
-              <div><div class="l">Role</div><div class="v">Analyst / Designer</div></div>
-              <div><div class="l">Year</div><div class="v">2024</div></div>
-              <div><div class="l">Type</div><div class="v">Proof of concept</div></div>
-            </div>
-            <p class="mdetail__lead">A proof-of-concept project to help Thomas More University simplify the admission process for incoming students and support coordinators in managing their workflow.</p>
+            <div class="mdetail__num">Project 01 · Internship</div>
+            <h2>AI-Assisted Puzzle Solver</h2>
+            <p class="mdetail__lead">My internship project at Smart Toys &amp; Games (Smart NV): a computer-vision app that scans a physical puzzle through the phone camera, detects every piece, rebuilds the board digitally, and provides progressive hints — from a single cell up to the full solution. Everything runs on the user's device, with no backend and no installation.</p>
             <div class="mdetail__cols">
-              <div class="mdetail__col"><h4>What</h4><p>A concept and prototype for streamlining how incoming students are admitted and managed, built with the client during our Skills Integration 2 course.</p></div>
-              <div class="mdetail__col"><h4>My contribution</h4><p>Performed requirement analysis with the client, created use-case models and descriptions, and helped design the prototype in Figma. My first time working directly with a client.</p></div>
+              <div class="mdetail__col"><h4>My contribution</h4><p>I built the whole pipeline: a dataset of 1,800+ synthetic images rendered in Blender plus 240+ real photos hand-labeled in Roboflow; a YOLOv26 Nano model trained in two stages (synthetic, then finetuned on real) reaching 99.5% mAP; perspective correction with homography and grid mapping; and a backtracking solver with progressive hints. I then ported the entire CV pipeline from Python/OpenCV to pure JavaScript, running the model in the browser via ONNX Runtime (WebAssembly), and reused the same architecture for a second puzzle.</p></div>
+              <div class="mdetail__col"><h4>What I learned</h4><p>This was my first AI project in a professional environment, and the result will actually be used by children playing Smart NV puzzles. I grew a lot in computer vision, model training, data generation, and building full applications from scratch — and, working alongside senior developers, I learned when to push through a challenge and when to speak up and redirect.</p></div>
             </div>
-            <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">Requirement Analysis</span><span class="tag">Figma</span><span class="tag">Design</span><span class="tag">Communication</span></div></div>
+            <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">Python</span><span class="tag tag--accent">YOLOv26</span><span class="tag">Ultralytics</span><span class="tag">ONNX Runtime</span><span class="tag">WebAssembly</span><span class="tag">OpenCV</span><span class="tag">Blender</span><span class="tag">Roboflow</span><span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">Homography</span></div></div>
+            <div class="mdetail__cta"><a href="internship.html" class="btn btn--accent">Full case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
           </div>
         </template>
       </article>
 
-      <!-- 02 - Training Session Progress -->
-      <article class="pcard reveal" data-delay="1" tabindex="0" role="button" aria-label="Open: Training Session Progress">
+      <!-- 02 - Multi-Agent Personal Learning Assistant -->
+      <article class="pcard reveal" data-delay="1" tabindex="0" role="button" aria-label="Open: Multi-Agent Personal Learning Assistant">
+        <div class="pcard__media-wrap"><img src="images/nlp0.JPG" alt="Multi-Agent Personal Learning Assistant" class="pcard__media is-media" /></div>
+        <div class="pcard__body">
+          <div class="pcard__head"><h3>Multi-Agent Personal Learning Assistant</h3><span class="pcard__num">02</span></div>
+          <p>A multi-agent AI learning assistant that explains concepts, generates quizzes, and grades answers with detailed feedback.</p>
+          <div class="pcard__foot"><div class="tags"><span class="tag">CrewAI</span><span class="tag">RAG</span></div><span class="pcard__open">Open ↗</span></div>
+        </div>
+        <template>
+          <div class="mcarousel" data-carousel>
+            <img src="images/nlp0.JPG" alt="Multi-Agent Personal Learning Assistant - 1" class="mcarousel__slide is-active" />
+            <img src="images/nlp1.JPG" alt="Multi-Agent Personal Learning Assistant - 2" class="mcarousel__slide" />
+            <img src="images/nlp2.JPG" alt="Multi-Agent Personal Learning Assistant - 3" class="mcarousel__slide" />
+            <img src="images/nlp3.JPG" alt="Multi-Agent Personal Learning Assistant - 4" class="mcarousel__slide" />
+            <img src="images/nlp4.JPG" alt="Multi-Agent Personal Learning Assistant - 5" class="mcarousel__slide" />
+            <button type="button" class="mcarousel__btn mcarousel__btn--prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <button type="button" class="mcarousel__btn mcarousel__btn--next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+            <div class="mcarousel__dots"></div>
+          </div>
+          <div class="mdetail mdetail__inner">
+            <div class="mdetail__num">Project 02 · Machine Learning (Natural Language Processing)</div>
+            <h2>Multi-Agent Personal Learning Assistant</h2>
+            <p class="mdetail__lead">A group project (team of 2) for the Machine Learning (Natural Language Processing) course: a multi-agent AI system that acts as a personal learning assistant for students. It can explain concepts, generate multiple-choice quizzes through a collaborative multi-agent workflow, and grade answers with detailed feedback. It uses four specialized AI agents coordinated through the CrewAI framework, with MCP tool integration and a dual memory system for conversation continuity.</p>
+            <div class="mdetail__cols">
+              <div class="mdetail__col"><h4>My contribution</h4><p>I was responsible for building the core of the system. I developed 2 of the 4 AI agents, implemented the RAG engine for processing and searching uploaded course documents (PDF/PPTX), set up the MCP tool integration with FastMCP, and built both memory systems — short-term memory with Redis and long-term memory with Qdrant. I also rebuilt the frontend in Next.js and React with TypeScript, replacing the original Streamlit interface, and set up the backend API with FastAPI including SSE streaming for real-time chat responses.</p></div>
+              <div class="mdetail__col"><h4>What I learned</h4><p>This project deepened my understanding of multi-agent AI systems and how agents collaborate through task dependencies. I gained hands-on experience with RAG pipelines, vector databases, and MCP tool integration, and improved my skills in designing modular architectures and managing both short-term and long-term memory in AI applications.</p></div>
+            </div>
+            <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">CrewAI</span><span class="tag tag--accent">Python</span><span class="tag">OpenAI API</span><span class="tag">LangChain</span><span class="tag">Qdrant</span><span class="tag">Redis</span><span class="tag">FastMCP</span><span class="tag">RAG</span><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Tailwind CSS</span><span class="tag">shadcn/ui</span><span class="tag">FastAPI</span></div></div>
+          </div>
+        </template>
+      </article>
+
+      <!-- 03 - Team Sport Analytics — Tennis Doubles -->
+      <article class="pcard reveal" data-delay="2" tabindex="0" role="button" aria-label="Open: Team Sport Analytics — Tennis Doubles">
+        <div class="pcard__media-wrap"><video src="images/tennis.mp4#t=0.5" class="pcard__media is-media" muted playsinline preload="metadata"></video></div>
+        <div class="pcard__body">
+          <div class="pcard__head"><h3>Team Sport Analytics — Tennis Doubles</h3><span class="pcard__num">03</span></div>
+          <p>A computer-vision system that detects and tracks players and the ball in a tennis doubles match, with top-view court analytics.</p>
+          <div class="pcard__foot"><div class="tags"><span class="tag">YOLOv8</span><span class="tag">OpenCV</span></div><span class="pcard__open">Open ↗</span></div>
+        </div>
+        <template>
+          <video src="images/tennis.mp4" class="mdetail__media is-media" controls preload="metadata" playsinline></video>
+          <div class="mdetail mdetail__inner">
+            <div class="mdetail__num">Project 03 · Machine Learning (Computer Vision)</div>
+            <h2>Team Sport Analytics — Tennis Doubles</h2>
+            <p class="mdetail__lead">A group project (team of 2) for the Machine Learning (Computer Vision) course: a computer vision system that detects and tracks players and the ball during a tennis doubles match. We followed an end-to-end workflow — from dataset creation and annotation, to training a custom object detection model, applying homography mapping to project player positions onto a top-view court, and generating match analytics such as court coverage and ball-trajectory analysis.</p>
+            <div class="mdetail__cols">
+              <div class="mdetail__col"><h4>My contribution</h4><p>I was responsible for data collection and annotation, labeling roughly 200 frames in Roboflow across three classes (player_blue, player_red, ball). I handled the fine-tuning of YOLOv8 on our custom dataset, evaluating performance through mAP scores, confusion matrices, and precision-recall curves. I also implemented the homography transformation — manual court-keypoint annotation, coordinate mapping from video to a top-view court, and team-assignment logic based on court position.</p></div>
+              <div class="mdetail__col"><h4>What I learned</h4><p>This project gave me hands-on experience with the full computer vision pipeline — from data labeling and model training to geometric transformations. I learned to fine-tune a pre-trained object detection model on a custom dataset, evaluate its performance, and apply homography to map real-world coordinates. It also improved my problem-solving and adaptability, as the team faced setbacks and had to adjust responsibilities to deliver on time.</p></div>
+            </div>
+            <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">Python</span><span class="tag tag--accent">YOLOv8</span><span class="tag">OpenCV</span><span class="tag">Roboflow</span><span class="tag">Homography</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span></div></div>
+          </div>
+        </template>
+      </article>
+
+      <!-- 04 - Training Session Progress -->
+      <article class="pcard reveal" tabindex="0" role="button" aria-label="Open: Training Session Progress">
         <div class="pcard__media-wrap"><img src="images/training1.JPG" alt="Training Session Progress" class="pcard__media is-media" /></div>
         <div class="pcard__body">
-          <div class="pcard__head"><h3>Training Session Progress</h3><span class="pcard__num">02</span></div>
+          <div class="pcard__head"><h3>Training Session Progress</h3><span class="pcard__num">04</span></div>
           <p>A platform to track training sessions at Thomas More: smoother collaboration between students, coaches, and coordinators.</p>
           <div class="pcard__foot"><div class="tags"><span class="tag">PHP</span><span class="tag">SQL</span></div><span class="pcard__open">Open ↗</span></div>
         </div>
@@ -206,29 +291,24 @@
             <div class="mcarousel__dots"></div>
           </div>
           <div class="mdetail mdetail__inner">
-            <div class="mdetail__num">Project 02 · Skills Integration 2</div>
+            <div class="mdetail__num">Project 04 · Skills Integration 2</div>
             <h2>Training Session Progress</h2>
-            <div class="mdetail__meta">
-              <div><div class="l">Role</div><div class="v">Document lead</div></div>
-              <div><div class="l">Year</div><div class="v">2024</div></div>
-              <div><div class="l">Type</div><div class="v">Team web app</div></div>
-            </div>
             <p class="mdetail__lead">A team application to track training sessions at Thomas More University, bringing students, coaches, coordinators, and clients together in one platform.</p>
             <div class="mdetail__cols">
-              <div class="mdetail__col"><h4>What</h4><p>A web platform that made collaboration around training sessions smoother for everyone involved, developed during the Skills Integration 2 course.</p></div>
-              <div class="mdetail__col"><h4>My contribution</h4><p>As document lead, I built the user-management CRUD for coaches and coordinators, worked on multi-language support and file uploads, contributed to design, and took part in the requirement analysis.</p></div>
+              <div class="mdetail__col"><h4>My contribution</h4><p>As the document lead, I implemented the user-management CRUD system for both coaches and coordinators, worked on multi-language support, contributed to design, handled file uploads, and participated in the requirement analysis.</p></div>
+              <div class="mdetail__col"><h4>What I learned</h4><p>This project significantly improved my PHP skills, as well as my communication with both clients and my team. I also gained experience with real features like multi-language systems and file handling.</p></div>
             </div>
-            <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">PHP</span><span class="tag tag--accent">SQL</span><span class="tag">Figma</span><span class="tag">Requirement Analysis</span></div></div>
+            <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">PHP</span><span class="tag tag--accent">SQL</span><span class="tag">Figma</span><span class="tag">Requirement Analysis</span><span class="tag">Communication</span><span class="tag">Design</span></div></div>
             <div class="mdetail__cta"><a href="https://skill2.bragi.be/" target="_blank" rel="noopener" class="btn btn--accent">Live demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
           </div>
         </template>
       </article>
 
-      <!-- 03 - Go 4 Wheels -->
-      <article class="pcard reveal" data-delay="2" tabindex="0" role="button" aria-label="Open: Go 4 Wheels">
+      <!-- 05 - Go 4 Wheels -->
+      <article class="pcard reveal" data-delay="1" tabindex="0" role="button" aria-label="Open: Go 4 Wheels">
         <div class="pcard__media-wrap"><img src="images/car1.JPG" alt="Go 4 Wheels" class="pcard__media is-media" /></div>
         <div class="pcard__body">
-          <div class="pcard__head"><h3>Go 4 Wheels</h3><span class="pcard__num">03</span></div>
+          <div class="pcard__head"><h3>Go 4 Wheels</h3><span class="pcard__num">05</span></div>
           <p>A car marketplace to buy and sell cars, with filtering, image uploads, and built-in messaging.</p>
           <div class="pcard__foot"><div class="tags"><span class="tag">Laravel</span><span class="tag">PHP</span></div><span class="pcard__open">Open ↗</span></div>
         </div>
@@ -242,28 +322,23 @@
             <div class="mcarousel__dots"></div>
           </div>
           <div class="mdetail mdetail__inner">
-            <div class="mdetail__num">Project 03 · Web Development</div>
+            <div class="mdetail__num">Project 05 · Web Development</div>
             <h2>Go 4 Wheels</h2>
-            <div class="mdetail__meta">
-              <div><div class="l">Role</div><div class="v">Solo developer</div></div>
-              <div><div class="l">Year</div><div class="v">2025</div></div>
-              <div><div class="l">Type</div><div class="v">Web application</div></div>
-            </div>
             <p class="mdetail__lead">An individual project: a car marketplace where users can buy and sell cars through a clean, user-friendly interface. As a car enthusiast, I really enjoyed building it.</p>
             <div class="mdetail__cols">
-              <div class="mdetail__col"><h4>What</h4><p>A full car marketplace with listings, filtering and search, image uploads, multi-language support, and a messaging section so users can contact car owners directly.</p></div>
-              <div class="mdetail__col"><h4>My contribution</h4><p>Built the complete CRUD system for car management, the filtering/search, image handling, and messaging. My first experience with PHP and Laravel. It taught me a lot about full-stack development.</p></div>
+              <div class="mdetail__col"><h4>My contribution</h4><p>I implemented a complete CRUD system for car management, built filtering and search features, handled image uploads and downloads, and added multi-language support. Users can add their own cars and see them listed instantly, and I built a messaging section so they can contact car owners directly through the app.</p></div>
+              <div class="mdetail__col"><h4>What I learned</h4><p>This was my first experience with PHP and Laravel. I learned to build a dynamic web application from scratch, manage data with a database, and deliver a smooth user experience with modern tools and styling. It helped me understand full-stack development much better.</p></div>
             </div>
             <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">PHP</span><span class="tag tag--accent">Laravel</span><span class="tag">Livewire</span><span class="tag">Tailwind CSS</span><span class="tag">Alpine.js</span></div></div>
           </div>
         </template>
       </article>
 
-      <!-- 04 - Scoop Heaven -->
-      <article class="pcard reveal" tabindex="0" role="button" aria-label="Open: Scoop Heaven">
+      <!-- 06 - Scoop Heaven -->
+      <article class="pcard reveal" data-delay="2" tabindex="0" role="button" aria-label="Open: Scoop Heaven">
         <div class="pcard__media-wrap"><img src="images/a1.jpg" alt="Scoop Heaven" class="pcard__media is-media" /></div>
         <div class="pcard__body">
-          <div class="pcard__head"><h3>Scoop Heaven</h3><span class="pcard__num">04</span></div>
+          <div class="pcard__head"><h3>Scoop Heaven</h3><span class="pcard__num">06</span></div>
           <p>A full-stack website for a fictional ice-cream shop: homepage, flavors page, and customer reviews.</p>
           <div class="pcard__foot"><div class="tags"><span class="tag">Bootstrap</span><span class="tag">SCSS</span></div><span class="pcard__open">Open ↗</span></div>
         </div>
@@ -277,28 +352,53 @@
             <div class="mcarousel__dots"></div>
           </div>
           <div class="mdetail mdetail__inner">
-            <div class="mdetail__num">Project 04 · Team project</div>
+            <div class="mdetail__num">Project 06 · Full-Stack</div>
             <h2>Scoop Heaven</h2>
-            <div class="mdetail__meta">
-              <div><div class="l">Role</div><div class="v">Front &amp; back end</div></div>
-              <div><div class="l">Year</div><div class="v">2024</div></div>
-              <div><div class="l">Type</div><div class="v">Team web app</div></div>
-            </div>
             <p class="mdetail__lead">A full-stack team project for a fictional ice-cream shop that wanted to launch its own website. I worked on both the front end and the back end.</p>
             <div class="mdetail__cols">
-              <div class="mdetail__col"><h4>What</h4><p>A website for the shop with a designed homepage, a dedicated Flavors page, and an About Us page with a review section for customer feedback.</p></div>
-              <div class="mdetail__col"><h4>My contribution</h4><p>Designed the homepage with Bootstrap and SCSS, and built the Flavors and About Us pages independently. It grew my back-end skills, my SCSS, and my team collaboration.</p></div>
+              <div class="mdetail__col"><h4>My contribution</h4><p>I designed the homepage using Bootstrap and SCSS, and created two full pages independently: a Flavors page and an About Us page with a review section for customer feedback.</p></div>
+              <div class="mdetail__col"><h4>What I learned</h4><p>This project helped me grow my back-end skills, gain experience in SCSS styling, and improve my team collaboration by managing individual responsibilities in a group setting.</p></div>
             </div>
             <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">HTML</span><span class="tag tag--accent">SCSS</span><span class="tag">CSS</span><span class="tag">Bootstrap</span><span class="tag">JavaScript</span><span class="tag">Python</span><span class="tag">Netlify</span></div></div>
           </div>
         </template>
       </article>
 
-      <!-- 05 - VoIP -->
+      <!-- 07 - Incoming Student Administration -->
+      <article class="pcard reveal" tabindex="0" role="button" aria-label="Open: Incoming Student Administration">
+        <div class="pcard__media-wrap"><img src="images/figma.JPG" alt="Incoming Student Administration" class="pcard__media is-media" /></div>
+        <div class="pcard__body">
+          <div class="pcard__head"><h3>Incoming Student Administration</h3><span class="pcard__num">07</span></div>
+          <p>A proof-of-concept to simplify Thomas More's admission process for incoming students and coordinators.</p>
+          <div class="pcard__foot"><div class="tags"><span class="tag">Figma</span><span class="tag">Analysis</span></div><span class="pcard__open">Open ↗</span></div>
+        </div>
+        <template>
+          <div class="mcarousel" data-carousel>
+            <img src="images/figma.JPG" alt="Incoming Student Administration - design 1" class="mcarousel__slide is-active" />
+            <img src="images/figma2.JPG" alt="Incoming Student Administration - design 2" class="mcarousel__slide" />
+            <img src="images/figma3.JPG" alt="Incoming Student Administration - design 3" class="mcarousel__slide" />
+            <button type="button" class="mcarousel__btn mcarousel__btn--prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <button type="button" class="mcarousel__btn mcarousel__btn--next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+            <div class="mcarousel__dots"></div>
+          </div>
+          <div class="mdetail mdetail__inner">
+            <div class="mdetail__num">Project 07 · Skills Integration 2</div>
+            <h2>Incoming Student Administration</h2>
+            <p class="mdetail__lead">A proof-of-concept project to help Thomas More University simplify the admission process for incoming students and support coordinators in managing their workflow.</p>
+            <div class="mdetail__cols">
+              <div class="mdetail__col"><h4>My contribution</h4><p>I collaborated with the team to perform requirement analysis with the client, created use-case models and descriptions, and participated in designing the prototype using Figma.</p></div>
+              <div class="mdetail__col"><h4>What I learned</h4><p>This was my first time working directly with a client. I learned to communicate professionally, understand client expectations, and improve my teamwork and collaboration throughout the project.</p></div>
+            </div>
+            <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">Requirement Analysis</span><span class="tag">Figma</span><span class="tag">Design</span><span class="tag">Communication</span></div></div>
+          </div>
+        </template>
+      </article>
+
+      <!-- 08 - VoIP -->
       <article class="pcard reveal" data-delay="1" tabindex="0" role="button" aria-label="Open: VoIP">
         <div class="pcard__media-wrap"><img src="images/pexels-cookiecutter-17636234.jpg" alt="VoIP networking project" class="pcard__media is-media" /></div>
         <div class="pcard__body">
-          <div class="pcard__head"><h3>VoIP</h3><span class="pcard__num">05</span></div>
+          <div class="pcard__head"><h3>VoIP</h3><span class="pcard__num">08</span></div>
           <p>Configured and connected multiple IP phones over a network. My final networking internship project.</p>
           <div class="pcard__foot"><div class="tags"><span class="tag">Cisco</span><span class="tag">Networking</span></div><span class="pcard__open">Open ↗</span></div>
         </div>
@@ -312,17 +412,12 @@
             <div class="mcarousel__dots"></div>
           </div>
           <div class="mdetail mdetail__inner">
-            <div class="mdetail__num">Project 05 · Networks internship</div>
+            <div class="mdetail__num">Project 08 · Networks internship</div>
             <h2>VoIP (Voice over Internet Protocol)</h2>
-            <div class="mdetail__meta">
-              <div><div class="l">Role</div><div class="v">Network intern</div></div>
-              <div><div class="l">Year</div><div class="v">2021</div></div>
-              <div><div class="l">Type</div><div class="v">Networking</div></div>
-            </div>
             <p class="mdetail__lead">My final project during my Computer Networks internship: connecting and configuring multiple house phones using network infrastructure.</p>
             <div class="mdetail__cols">
-              <div class="mdetail__col"><h4>What</h4><p>A working VoIP setup where multiple IP phones could communicate with each other across the network.</p></div>
-              <div class="mdetail__col"><h4>My contribution</h4><p>Tested the configuration first in Cisco Packet Tracer, then configured real IP phones, switches, and routes on actual hardware at the company. My first time working with real networking equipment.</p></div>
+              <div class="mdetail__col"><h4>My contribution</h4><p>I first tested the configuration in Cisco Packet Tracer, then continued with real hardware at the company, where I configured IP phones, switches, and routes to let the phones communicate with each other.</p></div>
+              <div class="mdetail__col"><h4>What I learned</h4><p>This was my first time working with real networking equipment. It gave me hands-on experience configuring hardware and troubleshooting real-world VoIP connections.</p></div>
             </div>
             <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">Cisco Packet Tracer</span><span class="tag">VoIP</span><span class="tag">Networking</span><span class="tag">CCNA</span></div></div>
           </div>

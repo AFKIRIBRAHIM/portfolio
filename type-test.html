@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Type test · Heading color playground</title>
+<link rel="icon" href="images/favicon-32x32.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Poppins:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=5" />
+<style>
+/* ============ TYPE TEST PLAYGROUND (this page only) ============ */
+.tt-wrap { max-width: 980px; margin: 0 auto; padding: clamp(24px, 5vw, 56px) clamp(16px, 4vw, 32px) 80px; }
+.tt-note { font-family: var(--mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+
+/* The preview uses live variables we control with the sliders */
+.tt-preview { --w: 700; }
+.tt-preview h1, .tt-preview h2, .tt-preview h3 {
+  color: var(--ink-title);
+  font-weight: var(--w);
+}
+
+.tt-panel {
+  position: sticky; top: 16px; z-index: 5;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px 26px;
+  background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-lg);
+  padding: 20px 24px; box-shadow: var(--shadow-sm); margin-bottom: 40px;
+}
+.tt-field { display: flex; flex-direction: column; gap: 7px; }
+.tt-field label { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); display: flex; justify-content: space-between; gap: 10px; }
+.tt-field label b { color: var(--accent-ink); font-weight: 600; }
+.tt-field input[type=range] { width: 100%; accent-color: var(--accent); }
+.tt-field select { font-family: var(--font); font-size: 0.95rem; padding: 7px 10px; border: 1px solid var(--line-2); border-radius: var(--r-sm); background: var(--bg); color: var(--ink); }
+
+.tt-out { grid-column: 1 / -1; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 16px; margin-top: 2px; }
+.tt-swatch { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line-2); flex: none; }
+.tt-code { font-family: var(--mono); font-size: 0.86rem; color: var(--ink); background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 8px 12px; flex: 1; min-width: 240px; }
+.tt-copy { font-family: var(--mono); font-size: 0.78rem; padding: 9px 16px; border-radius: var(--r-sm); background: var(--ink); color: var(--bg); transition: background 0.2s, transform 0.3s var(--ease); }
+.tt-copy:hover { background: var(--accent); transform: translateY(-1px); }
+
+.tt-sample { border-top: 1px solid var(--line); padding-top: 30px; margin-top: 30px; }
+.tt-sample:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+.tt-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 24px 26px; box-shadow: var(--shadow-xs); max-width: 420px; }
+
+/* Side-by-side font compare */
+.tt-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.tt-compare > div { border: 1px dashed var(--line-2); border-radius: var(--r); padding: 18px 20px; }
+.tt-compare .ff-nunito h2 { font-family: 'Nunito', sans-serif; }
+.tt-compare .ff-poppins h2 { font-family: 'Poppins', sans-serif; }
+@media (max-width: 620px) { .tt-compare { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body data-page="type-test">
+
+<div class="tt-wrap tt-preview">
+
+  <p class="tt-note">Heading playground — drag the sliders, copy the value you like into <code>--ink-title</code></p>
+  <h1 class="display" style="margin-top:10px;">Selected work</h1>
+
+  <!-- Controls -->
+  <div class="tt-panel">
+    <div class="tt-field">
+      <label>Lightness <b id="vL">0.42</b></label>
+      <input id="L" type="range" min="0.20" max="0.70" step="0.01" value="0.42" />
+    </div>
+    <div class="tt-field">
+      <label>Chroma (tint) <b id="vC">0.026</b></label>
+      <input id="C" type="range" min="0" max="0.08" step="0.002" value="0.026" />
+    </div>
+    <div class="tt-field">
+      <label>Hue <b id="vH">285</b></label>
+      <input id="H" type="range" min="0" max="360" step="1" value="285" />
+    </div>
+    <div class="tt-field">
+      <label>Weight <b id="vW">700</b></label>
+      <select id="W">
+        <option value="400">400 — Regular</option>
+        <option value="500">500 — Medium</option>
+        <option value="600">600 — SemiBold</option>
+        <option value="700" selected>700 — Bold</option>
+        <option value="800">800 — ExtraBold</option>
+      </select>
+    </div>
+    <div class="tt-out">
+      <span class="tt-swatch" id="sw"></span>
+      <code class="tt-code" id="code">--ink-title: oklch(0.42 0.026 285);</code>
+      <button class="tt-copy" id="copy" type="button">Copy</button>
+    </div>
+  </div>
+
+  <!-- Live samples in real contexts -->
+  <div class="tt-sample">
+    <p class="tt-note">Hero (.display) + lead</p>
+    <h1 class="display">Building intelligent systems</h1>
+    <p class="lead" style="margin-top:12px;">A cross-section of what I've built, from computer-vision pipelines to full-stack web applications.</p>
+  </div>
+
+  <div class="tt-sample">
+    <p class="tt-note">Section heading (.h2) + body</p>
+    <h2 class="h2">Selected work</h2>
+    <p style="margin-top:12px; color:var(--ink-2); max-width:60ch;">Each project below includes what it was, my contribution, and what I learned. Headings use a softened ink so the strong black doesn't fight the rest of the page, while the bold weight keeps them clearly dominant over body text.</p>
+  </div>
+
+  <div class="tt-sample">
+    <p class="tt-note">Card title (h3) in context</p>
+    <div class="tt-card">
+      <div style="display:flex; align-items:baseline; justify-content:space-between; gap:10px;">
+        <h3>Team Sport Analytics — Tennis Doubles</h3>
+        <span class="mono" style="font-size:0.74rem; color:var(--muted);">02</span>
+      </div>
+      <p style="margin-top:10px; color:var(--muted); font-size:0.92rem;">A computer-vision system that detects and tracks players and the ball, with top-view court analytics.</p>
+    </div>
+  </div>
+
+  <div class="tt-sample">
+    <p class="tt-note">Nunito vs Poppins (same color &amp; weight)</p>
+    <div class="tt-compare" style="margin-top:14px;">
+      <div class="ff-nunito"><p class="tt-note">Nunito</p><h2 class="h2">Selected work</h2></div>
+      <div class="ff-poppins"><p class="tt-note">Poppins</p><h2 class="h2">Selected work</h2></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var preview = document.querySelector('.tt-preview');
+  var L = document.getElementById('L'), C = document.getElementById('C'),
+      H = document.getElementById('H'), W = document.getElementById('W');
+  var vL = document.getElementById('vL'), vC = document.getElementById('vC'),
+      vH = document.getElementById('vH'), vW = document.getElementById('vW');
+  var sw = document.getElementById('sw'), code = document.getElementById('code'), copy = document.getElementById('copy');
+
+  function update() {
+    var l = (+L.value).toFixed(2), c = (+C.value).toFixed(3), h = H.value, w = W.value;
+    var color = 'oklch(' + l + ' ' + c + ' ' + h + ')';
+    vL.textContent = l; vC.textContent = c; vH.textContent = h; vW.textContent = w;
+    // apply live to all headings in the preview
+    preview.style.setProperty('--ink-title', color);
+    preview.style.setProperty('--w', w);
+    sw.style.background = color;
+    code.textContent = '--ink-title: ' + color + ';   /* weight ' + w + ' */';
+  }
+  [L, C, H, W].forEach(function (el) { el.addEventListener('input', update); });
+
+  copy.addEventListener('click', function () {
+    var text = code.textContent;
+    navigator.clipboard && navigator.clipboard.writeText(text);
+    var old = copy.textContent; copy.textContent = 'Copied ✓';
+    setTimeout(function () { copy.textContent = old; }, 1400);
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>
