@@ -45,10 +45,23 @@
   ready(function () {
     applyTweaks(getTweaks());
 
-    /* Nav scroll state */
+    /* Nav scroll state + auto-hide on scroll down / reveal on scroll up (mobile) */
     var nav = document.querySelector('.nav');
     if (nav) {
-      var onScroll = function () { nav.classList.toggle('is-scrolled', window.scrollY > 8); };
+      var lastY = window.scrollY;
+      var onScroll = function () {
+        var y = window.scrollY;
+        nav.classList.toggle('is-scrolled', y > 8);
+        var menuOpen = nav.querySelector('.nav__links.is-open');
+        if (menuOpen || y < 80) {
+          nav.classList.remove('nav--hidden');        // near top or menu open: always show
+        } else if (y > lastY + 4) {
+          nav.classList.add('nav--hidden');           // scrolling down: hide
+        } else if (y < lastY - 4) {
+          nav.classList.remove('nav--hidden');         // scrolling up: reveal
+        }
+        lastY = y;
+      };
       onScroll();
       window.addEventListener('scroll', onScroll, { passive: true });
     }

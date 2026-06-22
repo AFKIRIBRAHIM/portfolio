@@ -9,57 +9,84 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Poppins:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=5" />
+<link rel="stylesheet" href="styles.css?v=6" />
 <style>
 /* ============ PROJECTS PAGE ============ */
 
-.projects-hero { padding-top: clamp(24px, 4vw, 44px); padding-bottom: clamp(28px, 4vw, 44px); }
-.projects-hero__lead { max-width: 56ch; margin-top: 24px; }
+/* --- Tilted card-wall hero (vertical, static, fades into page) --- */
+.cwhero {
+  position: relative; overflow: hidden;
+  min-height: clamp(360px, 48vw, 520px);
+  display: grid; place-items: center;
+  padding-block: clamp(36px, 6vw, 76px);
+}
+.cwhero__wall {
+  position: absolute; inset: -24% -12%; z-index: 0;
+  display: flex; justify-content: center; align-items: center;
+  gap: clamp(12px, 1.5vw, 22px);
+  transform: rotate(-15deg) scale(1.08);
+  transform-origin: center;
+}
+.cwcol { display: flex; flex-direction: column; gap: clamp(12px, 1.5vw, 22px); flex: none; width: clamp(140px, 15vw, 220px); }
+.cwcol:nth-child(even) { margin-top: clamp(-90px, -7vw, -50px); }
+.cw-card {
+  width: 100%; aspect-ratio: 16/11;
+  border-radius: var(--r); overflow: hidden;
+  border: 1px solid var(--line); background: var(--surface-2);
+  box-shadow: var(--shadow);
+}
+.cw-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* --- Image-collage hero banner --- */
-.phero-collage { position: relative; border-radius: var(--r-xl); overflow: hidden; min-height: clamp(260px, 40vw, 420px); display: grid; place-items: center; background: oklch(0.22 0.02 285); box-shadow: var(--shadow); }
-.phero-collage__imgs { position: absolute; inset: 0; z-index: 0; display: flex; align-items: center; justify-content: center; }
-.phero-collage__imgs > * { width: clamp(150px, 17vw, 230px); aspect-ratio: 16/11; object-fit: cover; border-radius: var(--r); border: 3px solid var(--bg); box-shadow: var(--shadow-lg); margin-left: clamp(-70px, -5vw, -44px); flex: none; }
-.phero-collage__imgs > *:first-child { margin-left: 0; }
-.phero-collage__imgs > *:nth-child(1) { transform: rotate(-7deg) translateY(8px); }
-.phero-collage__imgs > *:nth-child(2) { transform: rotate(4deg)  translateY(-10px); }
-.phero-collage__imgs > *:nth-child(3) { transform: rotate(-4deg) translateY(6px); }
-.phero-collage__imgs > *:nth-child(4) { transform: rotate(-1deg) translateY(-4px) scale(1.08); z-index: 3; } /* iq-waves — centerpiece */
-.phero-collage__imgs > *:nth-child(5) { transform: rotate(3deg)  translateY(8px); z-index: 2; }
-.phero-collage__imgs > *:nth-child(6) { transform: rotate(-3deg) translateY(-6px); }
-.phero-collage__imgs > *:nth-child(7) { transform: rotate(5deg)  translateY(8px); }
-.phero-collage__imgs > *:nth-child(8) { transform: rotate(-6deg) translateY(-8px); }
-.phero-collage__scrim { position: absolute; inset: 0; z-index: 1; background: radial-gradient(72% 92% at 50% 50%, oklch(0.18 0.03 285 / 0.52) 0%, oklch(0.15 0.03 285 / 0.80) 100%); }
-.phero-collage__content { position: relative; z-index: 2; text-align: center; padding: 24px; }
-.phero-collage__content .eyebrow { color: oklch(0.86 0.08 var(--accent-h)); }
-.phero-collage__content .display { color: #fff; margin-top: 12px; text-shadow: 0 2px 28px oklch(0.10 0.02 285 / 0.55); }
+.cwhero__scrim {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(64% 70% at 50% 46%,
+      oklch(0.985 0.004 290 / 0.88) 0%,
+      oklch(0.985 0.004 290 / 0.55) 46%,
+      oklch(0.985 0.004 290 / 0.12) 100%),
+    radial-gradient(60% 60% at 82% 6%, var(--accent-soft) 0%, transparent 60%);
+}
+/* bottom fade — hero dissolves smoothly into the page (no hard line) */
+.cwhero__fade {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 48%; z-index: 1;
+  background: linear-gradient(to bottom, transparent 0%, var(--bg) 88%);
+  pointer-events: none;
+}
+.cwhero__content { position: relative; z-index: 2; text-align: center; max-width: 660px; padding-inline: 20px; }
+.cwhero__content .display { margin-top: 14px; }
+.cwhero__content .lead { margin: 20px auto 0; max-width: 48ch; }
 
-/* hero stat strip */
-.phero__stats { display: flex; gap: clamp(26px, 4vw, 52px); flex-wrap: wrap; margin-top: 28px; }
-.phero__stat .n { font-family: var(--font); font-weight: 700; font-size: clamp(1.7rem, 3vw, 2.3rem); color: var(--ink-title); line-height: 1; letter-spacing: -0.02em; }
-.phero__stat .l { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-top: 9px; }
-
-/* work-in-progress notice */
-.wip { display: flex; align-items: flex-start; gap: 14px; background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: var(--r-lg); padding: 18px 22px; box-shadow: var(--shadow-xs); margin-bottom: 30px; }
-.wip svg { flex: none; width: 22px; height: 22px; color: var(--accent-ink); margin-top: 2px; }
-.wip strong { display: block; color: var(--ink); }
-.wip span { color: var(--ink-2); font-size: 0.95rem; }
+@media (max-width: 680px) {
+  .cwhero { min-height: 360px; }
+  .cwhero__wall { inset: -28% -24%; }
+}
 
 /* --- Grid --- */
 .proj-grid { grid-template-columns: repeat(3, 1fr); }
 .pcard {
   display: flex; flex-direction: column; cursor: pointer;
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
-  overflow: hidden; box-shadow: var(--shadow-xs); text-align: left;
+  overflow: hidden; box-shadow: var(--shadow-sm); text-align: left;
   transition: transform 0.45s var(--ease), box-shadow 0.45s, border-color 0.3s;
 }
-.pcard:hover, .pcard:focus-visible { transform: translateY(-6px); box-shadow: var(--shadow); border-color: var(--line-2); outline: none; }
-.pcard:focus-visible { box-shadow: var(--shadow), 0 0 0 3px var(--accent-soft); border-color: var(--accent); }
-.pcard__media { aspect-ratio: 16/10; border: none; border-bottom: 1px solid var(--line); border-radius: 0; }
-.pcard:hover .pcard__media .ph__label { transform: translateY(-2px); }
+.pcard:hover, .pcard:focus-visible { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--accent-line); outline: none; }
+.pcard:focus-visible { box-shadow: var(--shadow-lg), 0 0 0 3px var(--accent-soft); border-color: var(--accent); }
+.pcard__media { aspect-ratio: 16/10; border: none; border-bottom: 1px solid var(--line); border-radius: 0; transition: transform 0.6s var(--ease); }
+.pcard__media-wrap { overflow: hidden; }
+.pcard:hover .pcard__media, .pcard:focus-visible .pcard__media { transform: scale(1.05); }
+/* soft sheen across the image on hover */
+.pcard__media-wrap::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, transparent 55%, oklch(0.2 0.02 285 / 0.14) 100%);
+  opacity: 0; transition: opacity 0.4s var(--ease);
+}
+.pcard:hover .pcard__media-wrap::after, .pcard:focus-visible .pcard__media-wrap::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .pcard:hover .pcard__media, .pcard:focus-visible .pcard__media { transform: none; }
+}
 .pcard__body { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 11px; flex: 1; }
 .pcard__head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
-.pcard__head h3 { font-size: 1.14rem; }
+.pcard__head h3 { font-size: 1.14rem; color: var(--accent-ink); }
 .pcard__num { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); flex: none; }
 .pcard__body p { color: var(--muted); font-size: 0.91rem; line-height: 1.5; flex: 1; }
 .pcard__foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 2px; }
@@ -67,24 +94,23 @@
 .pcard:hover .pcard__open, .pcard:focus-visible .pcard__open { opacity: 1; transform: none; }
 .pcard__flag { position: absolute; top: 12px; left: 12px; z-index: 2; font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; background: var(--accent); color: oklch(0.99 0.01 var(--accent-h)); padding: 0.32em 0.7em; border-radius: 999px; box-shadow: var(--shadow-sm); }
 .pcard__media-wrap { position: relative; }
-/* screenshots: show the whole image inside the frame instead of cropping/zooming */
 .pcard__media.is-contain { object-fit: contain; background: var(--surface-2); }
 .mcarousel__slide.is-contain { object-fit: contain; }
 
-/* --- Modal --- */
-.modal { position: fixed; inset: 0; z-index: 1000; display: none; align-items: flex-start; justify-content: center; padding: clamp(12px, 4vw, 40px); overflow-y: auto; }
+/* --- Modal (roomier, clearer hierarchy) --- */
+.modal { position: fixed; inset: 0; z-index: 1000; display: none; align-items: flex-start; justify-content: center; padding: clamp(12px, 4vw, 44px); overflow-y: auto; }
 .modal.is-open { display: flex; }
-.modal__backdrop { position: fixed; inset: 0; background: oklch(0.2 0.02 285 / 0.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); animation: fadeIn 0.3s var(--ease); }
+.modal__backdrop { position: fixed; inset: 0; background: oklch(0.2 0.02 285 / 0.5); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); animation: fadeIn 0.3s var(--ease); }
 .modal__dialog {
-  position: relative; z-index: 1; width: min(820px, 100%); margin: auto;
-  background: var(--bg); border: 1px solid var(--line-2); border-radius: var(--r-xl);
+  position: relative; z-index: 1; width: min(920px, 100%); margin: auto;
+  background: var(--bg); border: 1px solid var(--line-2); border-radius: var(--r-2xl);
   box-shadow: var(--shadow-lg); overflow: hidden; animation: modalIn 0.4s var(--ease);
 }
 @keyframes fadeIn { from { opacity: 0; } }
 @keyframes modalIn { from { opacity: 0; transform: translateY(24px) scale(0.985); } }
 .modal__close {
-  position: absolute; top: 14px; right: 14px; z-index: 3;
-  width: 38px; height: 38px; border-radius: 50%; background: oklch(1 0 0 / 0.9); border: 1px solid var(--line-2);
+  position: absolute; top: 16px; right: 16px; z-index: 3;
+  width: 40px; height: 40px; border-radius: 50%; background: oklch(1 0 0 / 0.9); border: 1px solid var(--line-2);
   display: grid; place-items: center; color: var(--ink); box-shadow: var(--shadow-sm);
   backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
   transition: background 0.2s, color 0.2s, transform 0.4s var(--ease);
@@ -96,46 +122,44 @@
   .modal__close:hover { transform: none; }
 }
 
-/* --- Modal image switcher --- */
-.mcarousel { position: relative; aspect-ratio: 16/8; border-bottom: 1px solid var(--line); overflow: hidden; background: var(--surface-2); }
-.mcarousel__slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.45s var(--ease); }
+/* image switcher */
+.mcarousel { position: relative; aspect-ratio: 16/9; border-bottom: 1px solid var(--line); overflow: hidden; background: var(--surface-2); }
+/* show the whole screenshot (no crop/zoom) on a clean backdrop */
+.mcarousel__slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: clamp(8px, 1.8%, 20px); opacity: 0; transition: opacity 0.45s var(--ease); }
 .mcarousel__slide.is-active { opacity: 1; }
 .mcarousel__btn {
   position: absolute; top: 50%; transform: translateY(-50%);
-  width: 40px; height: 40px; border-radius: 50%;
-  background: oklch(1 0 0 / 0.86); border: 1px solid var(--line-2); box-shadow: var(--shadow-sm);
+  width: 42px; height: 42px; border-radius: 50%;
+  background: oklch(1 0 0 / 0.88); border: 1px solid var(--line-2); box-shadow: var(--shadow-sm);
   display: grid; place-items: center; color: var(--ink); z-index: 2;
   backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
   transition: background 0.2s, color 0.2s, transform 0.3s var(--ease);
 }
 .mcarousel__btn:hover { background: var(--ink); color: var(--bg); }
 .mcarousel__btn svg { width: 20px; height: 20px; }
-.mcarousel__btn--prev { left: 12px; }
-.mcarousel__btn--next { right: 12px; }
-.mcarousel__dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 2; }
+.mcarousel__btn--prev { left: 14px; }
+.mcarousel__btn--next { right: 14px; }
+.mcarousel__dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 2; }
 .mcarousel__dot { width: 7px; height: 7px; padding: 0; border-radius: 999px; background: oklch(1 0 0 / 0.7); border: 1px solid var(--line-2); box-shadow: var(--shadow-xs); transition: width 0.3s var(--ease), background 0.2s, border-color 0.2s; }
 .mcarousel__dot.is-active { width: 20px; background: var(--accent); border-color: var(--accent); }
 
-/* --- Modal content (cloned from template) --- */
-.mdetail__media { aspect-ratio: 16/8; border-radius: 0; border: none; border-bottom: 1px solid var(--line); }
-.mdetail__inner { padding: clamp(24px, 4vw, 40px); }
+.mdetail__media { aspect-ratio: 16/9; border-radius: 0; border: none; border-bottom: 1px solid var(--line); }
+.mdetail__inner { padding: clamp(26px, 4vw, 48px); }
 .mdetail__num { font-family: var(--mono); font-size: 0.76rem; color: var(--accent-ink); letter-spacing: 0.08em; }
-.mdetail h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin: 8px 0 0; letter-spacing: -0.03em; }
-.mdetail__meta { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 18px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
-.mdetail__meta .l { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
-.mdetail__meta .v { font-size: 0.96rem; font-weight: 500; margin-top: 3px; }
-.mdetail__lead { font-size: 1.1rem; color: var(--ink-2); line-height: 1.55; margin-top: 22px; }
-.mdetail__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 24px; }
-.mdetail__col h4 { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-ink); margin-bottom: 8px; }
-.mdetail__col p { color: var(--ink-2); font-size: 0.95rem; line-height: 1.55; }
-.mdetail__stack { margin-top: 26px; }
-.mdetail__stack h4 { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 12px; }
-.mdetail__cta { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+.mdetail h2 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); margin: 10px 0 0; letter-spacing: -0.03em; }
+.mdetail__lead { font-size: clamp(1.08rem, 1.5vw, 1.22rem); color: var(--ink-2); line-height: 1.6; margin-top: 24px; padding-left: 18px; border-left: 3px solid var(--accent); }
+.mdetail__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; }
+.mdetail__col h4 { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-ink); margin-bottom: 10px; display: inline-flex; align-items: center; gap: 8px; }
+.mdetail__col h4::before { content: ""; width: 18px; height: 1px; background: var(--accent-line); }
+.mdetail__col p { color: var(--ink-2); font-size: 0.96rem; line-height: 1.6; }
+.mdetail__stack { margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--line); }
+.mdetail__stack h4 { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 14px; }
+.mdetail__cta { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
 
 @media (max-width: 900px) { .proj-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 620px) {
   .proj-grid { grid-template-columns: 1fr; }
-  .mdetail__cols { grid-template-columns: 1fr; gap: 18px; }
+  .mdetail__cols { grid-template-columns: 1fr; gap: 22px; }
 }
 </style>
 </head>
@@ -153,30 +177,69 @@
       <a href="about.html" class="nav__link">About</a>
       <a href="projects.html" class="nav__link is-active">Projects</a>
       <a href="internship.html" class="nav__link">Internship</a>
-      <span class="nav__cta"><a href="mailto:brahim-afkir@hotmail.com" class="btn btn--ghost btn--sm">Get in touch</a></span>
+      <span class="nav__cta"><a href="contact.html" class="btn btn--ghost btn--sm">Get in touch</a></span>
     </div>
   </div>
 </nav>
 
-<!-- ============ HERO ============ -->
-<header class="section projects-hero">
-  <div class="container hero-fade">
-    <div class="phero-collage reveal">
-      <div class="phero-collage__imgs" aria-hidden="true">
-        <img src="images/nlp0.JPG" alt="" loading="lazy" />
-        <img src="images/car1.JPG" alt="" loading="lazy" />
-        <img src="images/training1.JPG" alt="" loading="lazy" />
-        <img src="images/iq-waves-screen.JPG" alt="" loading="lazy" />
-        <img src="images/iq-stars-screen.JPG" alt="" loading="lazy" />
-        <video src="images/tennis.mp4#t=0.5" muted playsinline preload="metadata"></video>
-        <img src="images/a1.jpg" alt="" loading="lazy" />
-        <img src="images/figma.JPG" alt="" loading="lazy" />
-      </div>
-      <div class="phero-collage__scrim"></div>
-      <div class="phero-collage__content">
-        <h1 class="display">Selected work</h1>
-      </div>
+<!-- ============ HERO — tilted vertical card wall (static) ============ -->
+<header class="cwhero">
+  <div class="cwhero__wall" aria-hidden="true">
+    <div class="cwcol">
+      <div class="cw-card"><img src="images/car1.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/iq-waves-screen.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/nlp0.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/training1.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/a1.jpg" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/figma.JPG" alt="" loading="lazy" /></div>
     </div>
+    <div class="cwcol">
+      <div class="cw-card"><img src="images/iq-stars-screen.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/nlp1.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/training2.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/a5.jpg" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/figma2.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/car2.JPG" alt="" loading="lazy" /></div>
+    </div>
+    <div class="cwcol">
+      <div class="cw-card"><img src="images/nlp2.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/b2.jpg" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/training3.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/figma3.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/car3.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/iqwaves.png" alt="" loading="lazy" /></div>
+    </div>
+    <div class="cwcol">
+      <div class="cw-card"><img src="images/nlp3.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/pexels-cookiecutter-17636234.jpg" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/nlp4.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/pexels-yankrukov-8866726.jpg" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/pexels-cookiecutter-19506332.jpg" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/car1.JPG" alt="" loading="lazy" /></div>
+    </div>
+    <div class="cwcol">
+      <div class="cw-card"><img src="images/training1.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/a1.jpg" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/figma.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/iq-waves-screen.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/nlp0.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/car2.JPG" alt="" loading="lazy" /></div>
+    </div>
+    <div class="cwcol">
+      <div class="cw-card"><img src="images/iq-stars-screen.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/nlp1.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/b2.jpg" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/training2.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/figma2.JPG" alt="" loading="lazy" /></div>
+      <div class="cw-card"><img src="images/a5.jpg" alt="" loading="lazy" /></div>
+    </div>
+  </div>
+  <div class="cwhero__scrim"></div>
+  <div class="cwhero__fade"></div>
+  <div class="cwhero__content hero-fade">
+    <span class="eyebrow" style="justify-content:center;">Selected work</span>
+    <h1 class="display">A few things<br>I've built</h1>
+    <p class="lead">From computer vision and agentic AI to full-stack web apps — projects from my studies, internship, and side builds.</p>
   </div>
 </header>
 
@@ -189,7 +252,7 @@
       <article class="pcard reveal" tabindex="0" role="button" aria-label="Open: AI-Assisted Puzzle Solver">
         <div class="pcard__media-wrap">
           <span class="pcard__flag">Internship</span>
-          <img src="images/iq-waves-screen.JPG" alt="AI-Assisted Puzzle Solver" class="pcard__media is-media is-contain" />
+          <img src="images/iq-waves-screen.JPG" alt="AI-Assisted Puzzle Solver" class="pcard__media is-media" />
         </div>
         <div class="pcard__body">
           <div class="pcard__head"><h3>AI-Assisted Puzzle Solver</h3><span class="pcard__num">01</span></div>
@@ -442,6 +505,7 @@
         <a href="about.html">About</a>
         <a href="projects.html">Projects</a>
         <a href="internship.html">Internship</a>
+        <a href="contact.html">Contact</a>
       </div>
       <div class="footer__col">
         <h4>Elsewhere</h4>
@@ -466,6 +530,6 @@
   </div>
 </div>
 
-<script src="app.js"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>
