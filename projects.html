@@ -327,18 +327,50 @@
         </template>
       </article>
 
-      <!-- 03 - Team Sport Analytics — Tennis Doubles -->
-      <article class="pcard reveal" data-delay="2" tabindex="0" role="button" aria-label="Open: Team Sport Analytics — Tennis Doubles">
+      <!-- 03 - usionForce — AI-Assisted Insurance Claims -->
+      <article class="pcard reveal" data-delay="2" tabindex="0" role="button" aria-label="Open: usionForce — AI-Assisted Insurance Claims">
+        <div class="pcard__media-wrap"><img src="images/cloudway3.png" alt="Cloudway dashboard showing integration calls and daily token usage" class="pcard__media is-media" /></div>
+        <div class="pcard__body">
+          <div class="pcard__head"><h3>Cloudway — AI-Assisted Insurance Claims</h3><span class="pcard__num">03</span></div>
+          <p>An insurance claims app that extracts facts from text, photos, and documents, then explains the claim decision in the user’s preferred format.</p>
+          <div class="pcard__foot"><div class="tags"><span class="tag">Python</span><span class="tag">Amazon Bedrock</span></div><span class="pcard__open">Open ↗</span></div>
+        </div>
+        <template>
+          <div class="mcarousel" data-carousel>
+            <img src="images/cloudway3.png" alt="Cloudway dashboard with usage metrics" class="mcarousel__slide is-active" />
+            <img src="images/cloudway1.JPG" alt="Playground showing a claim narrative and the response" class="mcarousel__slide" />
+            <img src="images/cloudway2.JPG" alt="Call details showing request and response payloads" class="mcarousel__slide" />
+            <img src="images/cloudwat4.JPG" alt="Claims pipeline diagram showing how data flows through the Logic Unit and AI processing stages" class="mcarousel__slide" />
+            <img src="images/cloudway5.png" alt="CloudWatch logs for the claims pipeline" class="mcarousel__slide" />
+            <button type="button" class="mcarousel__btn mcarousel__btn--prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <button type="button" class="mcarousel__btn mcarousel__btn--next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+            <div class="mcarousel__dots"></div>
+          </div>
+          <div class="mdetail mdetail__inner">
+            <div class="mdetail__num">Project 03 · Skills Integration</div>
+            <h2>Cloudway — AI-Assisted Insurance Claims</h2>
+            <p class="mdetail__lead">For our third-year Skills Integration project at Thomas More, we worked with Cloudway to extend its insurance claims system. Our team brought together seven students from AI, application development, and cloud and cybersecurity. We built a pipeline that extracts claim details, such as where the damage occurred and how severe it was. Cloudway’s rules engine, called the Logic Unit, uses those facts to make a decision. The app then presents the result to the user.</p>
+            <div class="mdetail__cols">
+              <div class="mdetail__col"><h4>My contribution</h4><p>I was part of the AI team and was responsible for post-processing and integration with the app team. My work focused on what happens after the Logic Unit makes a decision. I worked on turning its output into a short summary, a detailed explanation, or bullet points while keeping the claim facts and decision consistent across formats. I also worked directly with the app team on the JSON response so the application could receive the suggested text and display it alongside the claim details.</p></div>
+              <div class="mdetail__col"><h4>What I learned</h4><p>I built on my experience with LLMs by evaluating how accurately a generated explanation reflected the Logic Unit’s original decision. I also became more familiar with how AWS services work together in an AI pipeline. Working with the app team taught me to design the AI output around what users need to see on screen and agree on a response format both teams could use.</p></div>
+            </div>
+            <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">Python</span><span class="tag tag--accent">Amazon Bedrock</span><span class="tag">Amazon SQS</span><span class="tag">Amazon S3</span><span class="tag">Amazon ECS</span></div></div>
+          </div>
+        </template>
+      </article>
+
+      <!-- 04 - Team Sport Analytics — Tennis Doubles -->
+      <article class="pcard reveal" tabindex="0" role="button" aria-label="Open: Team Sport Analytics — Tennis Doubles">
         <div class="pcard__media-wrap"><video src="images/tennis.mp4#t=0.5" class="pcard__media is-media" muted playsinline preload="metadata"></video></div>
         <div class="pcard__body">
-          <div class="pcard__head"><h3>Team Sport Analytics — Tennis Doubles</h3><span class="pcard__num">03</span></div>
+          <div class="pcard__head"><h3>Team Sport Analytics — Tennis Doubles</h3><span class="pcard__num">04</span></div>
           <p>A computer-vision system that detects and tracks players and the ball in a tennis doubles match, with top-view court analytics.</p>
           <div class="pcard__foot"><div class="tags"><span class="tag">YOLOv8</span><span class="tag">OpenCV</span></div><span class="pcard__open">Open ↗</span></div>
         </div>
         <template>
           <video src="images/tennis.mp4" class="mdetail__media is-media" controls preload="metadata" playsinline></video>
           <div class="mdetail mdetail__inner">
-            <div class="mdetail__num">Project 03 · Machine Learning (Computer Vision)</div>
+            <div class="mdetail__num">Project 04 · Machine Learning (Computer Vision)</div>
             <h2>Team Sport Analytics — Tennis Doubles</h2>
             <p class="mdetail__lead">A group project (team of 2) for the Machine Learning (Computer Vision) course: a computer vision system that detects and tracks players and the ball during a tennis doubles match. We followed an end-to-end workflow — from dataset creation and annotation, to training a custom object detection model, applying homography mapping to project player positions onto a top-view court, and generating match analytics such as court coverage and ball-trajectory analysis.</p>
             <div class="mdetail__cols">
@@ -350,13 +382,13 @@
         </template>
       </article>
 
-      <!-- 04 - Training Session Progress -->
-      <article class="pcard reveal" tabindex="0" role="button" aria-label="Open: Training Session Progress">
+      <!-- 05 - Training Session Progress -->
+      <article class="pcard reveal" data-delay="1" tabindex="0" role="button" aria-label="Open: Training Session Progress">
         <div class="pcard__media-wrap"><img src="images/training1.JPG" alt="Training Session Progress" class="pcard__media is-media" /></div>
         <div class="pcard__body">
-          <div class="pcard__head"><h3>Training Session Progress</h3><span class="pcard__num">04</span></div>
+          <div class="pcard__head"><h3>Training Session Progress</h3><span class="pcard__num">05</span></div>
           <p>A platform to track training sessions at Thomas More: smoother collaboration between students, coaches, and coordinators.</p>
-          <div class="pcard__foot"><div class="tags"><span class="tag">PHP</span><span class="tag">SQL</span></div><span class="pcard__open">Open ↗</span></div>
+          <div class="pcard__foot"><div class="tags"><span class="tag">Laravel</span><span class="tag">Livewire</span></div><span class="pcard__open">Open ↗</span></div>
         </div>
         <template>
           <div class="mcarousel" data-carousel>
@@ -368,24 +400,57 @@
             <div class="mcarousel__dots"></div>
           </div>
           <div class="mdetail mdetail__inner">
-            <div class="mdetail__num">Project 04 · Skills Integration 2</div>
+            <div class="mdetail__num">Project 05 · Skills Integration 2</div>
             <h2>Training Session Progress</h2>
             <p class="mdetail__lead">A team application to track training sessions at Thomas More University, bringing students, coaches, coordinators, and clients together in one platform.</p>
             <div class="mdetail__cols">
               <div class="mdetail__col"><h4>My contribution</h4><p>As the document lead, I implemented the user-management CRUD system for both coaches and coordinators, worked on multi-language support, contributed to design, handled file uploads, and participated in the requirement analysis.</p></div>
               <div class="mdetail__col"><h4>What I learned</h4><p>This project significantly improved my PHP skills, as well as my communication with both clients and my team. I also gained experience with real features like multi-language systems and file handling.</p></div>
             </div>
-            <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">PHP</span><span class="tag tag--accent">SQL</span><span class="tag">Figma</span><span class="tag">Requirement Analysis</span><span class="tag">Communication</span><span class="tag">Design</span></div></div>
+            <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">Laravel</span><span class="tag tag--accent">Livewire</span><span class="tag">Tailwind CSS</span><span class="tag">Alpine.js</span><span class="tag">PHP</span><span class="tag">SQL</span><span class="tag">Figma</span><span class="tag">Requirement Analysis</span><span class="tag">Communication</span><span class="tag">Design</span></div></div>
             <div class="mdetail__cta"><a href="https://skill2.bragi.be/" target="_blank" rel="noopener" class="btn btn--accent">Live demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
           </div>
         </template>
       </article>
 
-      <!-- 05 - Go 4 Wheels -->
-      <article class="pcard reveal" data-delay="1" tabindex="0" role="button" aria-label="Open: Go 4 Wheels">
+      <!-- 06 - MotoGP Application -->
+      <article class="pcard reveal" data-delay="2" tabindex="0" role="button" aria-label="Open: MotoGP Application">
+        <div class="pcard__media-wrap"><img src="images/.net5.JPG" alt="MotoGP rider directory" class="pcard__media is-media" /></div>
+        <div class="pcard__body">
+          <div class="pcard__head"><h3>MotoGP Application</h3><span class="pcard__num">06</span></div>
+          <p>A full-stack web app for browsing and managing MotoGP teams, riders, races, and sponsors.</p>
+          <div class="pcard__foot"><div class="tags"><span class="tag">ASP.NET Core</span><span class="tag">React</span></div><span class="pcard__open">Open ↗</span></div>
+        </div>
+        <template>
+          <div class="mcarousel" data-carousel>
+            <img src="images/.net5.JPG" alt="MotoGP rider directory with rider photos, numbers, and nationalities" class="mcarousel__slide is-active" />
+            <img src="images/.net6.JPG" alt="World map showing MotoGP race locations" class="mcarousel__slide" />
+            <img src="images/.net7.JPG" alt="Sponsor cards for the Ducati team" class="mcarousel__slide" />
+            <img src="images/.net1.JPG" alt="Ticket order list with search and filter controls" class="mcarousel__slide" />
+            <img src="images/.net4.JPG" alt="Ticket orders with payment buttons" class="mcarousel__slide" />
+            <img src="images/.net.jpg" alt="API documentation showing endpoints for riders, teams, and tickets" class="mcarousel__slide" />
+            <button type="button" class="mcarousel__btn mcarousel__btn--prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <button type="button" class="mcarousel__btn mcarousel__btn--next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+            <div class="mcarousel__dots"></div>
+          </div>
+          <div class="mdetail mdetail__inner">
+            <div class="mdetail__num">Project 06 · .NET Development</div>
+            <h2>MotoGP Application</h2>
+            <p class="mdetail__lead">I built this app to practice connecting a React frontend to an ASP.NET Core API. The app stores MotoGP data in SQL Server and lets users move between teams, riders, races, and sponsors without reloading the page.</p>
+            <div class="mdetail__cols">
+              <div class="mdetail__col"><h4>My contribution</h4><p>I designed the data models, managed database changes with Entity Framework Core, and built the API endpoints. I used DTOs and AutoMapper to control which data the API sends to the frontend. On the React side, I built reusable components, connected them to the API with Axios, and set up page navigation with React Router.</p></div>
+              <div class="mdetail__col"><h4>What I learned</h4><p>This project helped me understand how a request travels from a React page through the API to the database and back. I also learned how to update the database structure with migrations and return just the fields a page needs.</p></div>
+            </div>
+            <div class="mdetail__stack"><h4>Stack</h4><div class="tags"><span class="tag tag--accent">C#</span><span class="tag tag--accent">ASP.NET Core</span><span class="tag">Entity Framework Core</span><span class="tag">SQL Server</span><span class="tag">React</span><span class="tag">React Router</span><span class="tag">Axios</span><span class="tag">AutoMapper</span><span class="tag">Bootstrap</span></div></div>
+          </div>
+        </template>
+      </article>
+
+      <!-- 07 - Go 4 Wheels -->
+      <article class="pcard reveal" tabindex="0" role="button" aria-label="Open: Go 4 Wheels">
         <div class="pcard__media-wrap"><img src="images/car1.JPG" alt="Go 4 Wheels" class="pcard__media is-media" /></div>
         <div class="pcard__body">
-          <div class="pcard__head"><h3>Go 4 Wheels</h3><span class="pcard__num">05</span></div>
+          <div class="pcard__head"><h3>Go 4 Wheels</h3><span class="pcard__num">07</span></div>
           <p>A car marketplace to buy and sell cars, with filtering, image uploads, and built-in messaging.</p>
           <div class="pcard__foot"><div class="tags"><span class="tag">Laravel</span><span class="tag">PHP</span></div><span class="pcard__open">Open ↗</span></div>
         </div>
@@ -399,7 +464,7 @@
             <div class="mcarousel__dots"></div>
           </div>
           <div class="mdetail mdetail__inner">
-            <div class="mdetail__num">Project 05 · Web Development</div>
+            <div class="mdetail__num">Project 07 · Web Development</div>
             <h2>Go 4 Wheels</h2>
             <p class="mdetail__lead">An individual project: a car marketplace where users can buy and sell cars through a clean, user-friendly interface. As a car enthusiast, I really enjoyed building it.</p>
             <div class="mdetail__cols">
@@ -411,11 +476,11 @@
         </template>
       </article>
 
-      <!-- 06 - Scoop Heaven -->
-      <article class="pcard reveal" data-delay="2" tabindex="0" role="button" aria-label="Open: Scoop Heaven">
+      <!-- 08 - Scoop Heaven -->
+      <article class="pcard reveal" data-delay="1" tabindex="0" role="button" aria-label="Open: Scoop Heaven">
         <div class="pcard__media-wrap"><img src="images/a1.jpg" alt="Scoop Heaven" class="pcard__media is-media" /></div>
         <div class="pcard__body">
-          <div class="pcard__head"><h3>Scoop Heaven</h3><span class="pcard__num">06</span></div>
+          <div class="pcard__head"><h3>Scoop Heaven</h3><span class="pcard__num">08</span></div>
           <p>A full-stack website for a fictional ice-cream shop: homepage, flavors page, and customer reviews.</p>
           <div class="pcard__foot"><div class="tags"><span class="tag">Bootstrap</span><span class="tag">SCSS</span></div><span class="pcard__open">Open ↗</span></div>
         </div>
@@ -429,7 +494,7 @@
             <div class="mcarousel__dots"></div>
           </div>
           <div class="mdetail mdetail__inner">
-            <div class="mdetail__num">Project 06 · Full-Stack</div>
+            <div class="mdetail__num">Project 08 · Full-Stack</div>
             <h2>Scoop Heaven</h2>
             <p class="mdetail__lead">A full-stack team project for a fictional ice-cream shop that wanted to launch its own website. I worked on both the front end and the back end.</p>
             <div class="mdetail__cols">
@@ -441,11 +506,11 @@
         </template>
       </article>
 
-      <!-- 07 - Incoming Student Administration -->
-      <article class="pcard reveal" tabindex="0" role="button" aria-label="Open: Incoming Student Administration">
+      <!-- 09 - Incoming Student Administration -->
+      <article class="pcard reveal" data-delay="2" tabindex="0" role="button" aria-label="Open: Incoming Student Administration">
         <div class="pcard__media-wrap"><img src="images/figma.JPG" alt="Incoming Student Administration" class="pcard__media is-media" /></div>
         <div class="pcard__body">
-          <div class="pcard__head"><h3>Incoming Student Administration</h3><span class="pcard__num">07</span></div>
+          <div class="pcard__head"><h3>Incoming Student Administration</h3><span class="pcard__num">09</span></div>
           <p>A proof-of-concept to simplify Thomas More's admission process for incoming students and coordinators.</p>
           <div class="pcard__foot"><div class="tags"><span class="tag">Figma</span><span class="tag">Analysis</span></div><span class="pcard__open">Open ↗</span></div>
         </div>
@@ -459,7 +524,7 @@
             <div class="mcarousel__dots"></div>
           </div>
           <div class="mdetail mdetail__inner">
-            <div class="mdetail__num">Project 07 · Skills Integration 2</div>
+            <div class="mdetail__num">Project 09 · Skills Integration 2</div>
             <h2>Incoming Student Administration</h2>
             <p class="mdetail__lead">A proof-of-concept project to help Thomas More University simplify the admission process for incoming students and support coordinators in managing their workflow.</p>
             <div class="mdetail__cols">
@@ -471,11 +536,11 @@
         </template>
       </article>
 
-      <!-- 08 - VoIP -->
-      <article class="pcard reveal" data-delay="1" tabindex="0" role="button" aria-label="Open: VoIP">
+      <!-- 10 - VoIP -->
+      <article class="pcard reveal" tabindex="0" role="button" aria-label="Open: VoIP">
         <div class="pcard__media-wrap"><img src="images/pexels-cookiecutter-17636234.jpg" alt="VoIP networking project" class="pcard__media is-media" /></div>
         <div class="pcard__body">
-          <div class="pcard__head"><h3>VoIP</h3><span class="pcard__num">08</span></div>
+          <div class="pcard__head"><h3>VoIP</h3><span class="pcard__num">10</span></div>
           <p>Configured and connected multiple IP phones over a network. My final networking internship project.</p>
           <div class="pcard__foot"><div class="tags"><span class="tag">Cisco</span><span class="tag">Networking</span></div><span class="pcard__open">Open ↗</span></div>
         </div>
@@ -489,7 +554,7 @@
             <div class="mcarousel__dots"></div>
           </div>
           <div class="mdetail mdetail__inner">
-            <div class="mdetail__num">Project 08 · Networks internship</div>
+            <div class="mdetail__num">Project 10 · Networks internship</div>
             <h2>VoIP (Voice over Internet Protocol)</h2>
             <p class="mdetail__lead">My final project during my Computer Networks internship: connecting and configuring multiple house phones using network infrastructure.</p>
             <div class="mdetail__cols">
